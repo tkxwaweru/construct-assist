@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers;#
+
+use App\Models\UserModel;
 
 class Auth extends BaseController
 {
@@ -11,6 +13,13 @@ class Auth extends BaseController
     public function processLogin()
     {
       //Handle the login backend functionality
+      $userModel = new UserModel();
+      $user_details = $userModel->getOneUser();
+      
+      $session = session();
+      $session->set('user_details', $user_details);
+
+      return redirect()->to('auth/homepage');
     }
     public function homePage()
     {
