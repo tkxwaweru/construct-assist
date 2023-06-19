@@ -6,33 +6,28 @@ use App\Models\UserModel;
 
 class Auth extends BaseController
 {
-    public function index()
+    public function login()
     {
+      //Load the login module
       return view('auth/login.php');
     }
-    public function processLogin()
+    public function registration()
     {
-      //Handle the login backend functionality
-      $userModel = new UserModel();
-      $user_details = $userModel->getOneUser();
-      
-      $session = session();
-      $session->set('user_details', $user_details);
-
-      return redirect()->to('auth/homepage');
+      //Load the registration module
+      return view('auth/registration.php');
     }
     public function homePage()
     {
       //Load the homepage
       return view('auth/homepage.php');
     }
-    public function register()
+    public function processLogin()
     {
-      //Load the user registration page
-      return view('auth/register.php');
+      //Handle the login backend functionality
     }
     public function processRegistration()
     {
       //Handle the registration backend functionality
+      echo "Works";
     }
 }
