@@ -13,10 +13,7 @@ class Dashboard extends BaseController
       $userModel = new \App\Models\UserModel();
       $loggedUserID = session()->get('loggedUser');
       $userInfo = $userModel->find($loggedUserID);
-      $data = [
-          'title'=>'Dashboard',
-          'userInfo'=>$userInfo
-      ];
+      $data = ['userInfo'=>$userInfo];
       return view('auth/dashboard', $data);
     }
 }

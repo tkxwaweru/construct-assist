@@ -30,6 +30,8 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('activate/(:segment)/(:segment)','Auth::activate/$email/$name');
+
 
 $routes->add('login', 'Auth::login');
 $routes->add('registration', 'Auth::registration');
@@ -37,6 +39,13 @@ $routes->add('dashboard', 'Dashboard::index');
 $routes->add('processLogin', 'Auth::processLogin');
 $routes->add('processRegistration', 'Auth::processRegistration');
 $routes->add('logout', 'Auth::logout');
+$routes->add('activate', 'Auth::activate');
+$routes->add('logoutn', 'Auth::logoutn');
+
+
+
+
+
 
 
 /*

@@ -22,9 +22,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <td><?= $userInfo['name']; ?> &emsp;</td>
-                  <td><?= $userInfo['email']; ?> &emsp;</td>
-                  <td><a href="<?php echo site_url('logout'); ?>">Logout</a></td>
+                  <td><?php echo $name; ?> &emsp;</td>
+                  <td><?php echo $email; ?> &emsp;</td>
+                  <td><a href="<?php echo site_url('logoutn'); ?>">Logout</a></td>
                 </tbody>
              </table>
         </div>
