@@ -33,8 +33,11 @@ $routes->get('/', 'Home::index');
 
 $routes->add('login', 'Auth::login');
 $routes->add('registration', 'Auth::registration');
-$routes->add('homepage', 'Auth::homepage');
+$routes->add('dashboard', 'Dashboard::index');
+$routes->add('processLogin', 'Auth::processLogin');
 $routes->add('processRegistration', 'Auth::processRegistration');
+$routes->add('logout', 'Auth::logout');
+
 
 /*
  * --------------------------------------------------------------------

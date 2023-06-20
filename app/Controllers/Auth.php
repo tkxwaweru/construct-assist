@@ -3,9 +3,16 @@
 namespace App\Controllers;#
 
 use App\Models\UserModel;
+use App\Libraries\Hash;
 
 class Auth extends BaseController
 {
+
+    public function __construct()
+    {
+      helper(['url','Form']);
+    }
+
     public function login()
     {
       //Load the login module
@@ -16,18 +23,129 @@ class Auth extends BaseController
       //Load the registration module
       return view('auth/registration.php');
     }
-    public function homePage()
-    {
-      //Load the homepage
-      return view('auth/homepage.php');
-    }
+  
     public function processLogin()
     {
       //Handle the login backend functionality
+      $validation = $this->validate([
+        'email' => [
+            'rules'  => 'required|valid_email|is_not_unique[tbl_users.email]',
+            'errors' => [
+                'required' => 'Your email address is required.',
+                'valid_email' => 'Kindly enter a valid email address e.g email@example.com',
+                'is_not_unique' => 'Specified email address not found.',
+            ],
+        ],
+        'password' => [
+            'rules'  => 'required|min_length[5]|max_length[20]',
+            'errors' => [
+                'required' => 'You must enter a password.',
+                'min_length' => 'Your password must have at least 5 characters.',
+                'max_length' => 'Your password should not exceed 20 characters.',
+            ],
+        ],
+    ]);
+
+      if(!$validation){
+        return view('auth/login',['validation'=>$this->validator]);
+      //return  redirect()->to('auth/login')->with('validation', $this->validator)->withInput();
+      }
+      else{
+      $email = $this->request->getPost('email');
+      $password = $this->request->getPost('password');
+      $userModel = new \App\Models\UserModel();
+      $userInfo = $userModel->where('email', $email)->first();
+      $check_password = Hash::check($password, $userInfo['password']);
+
+      if(!$check_password){
+        session()->setFlashdata('fail','Incorrect password');
+        return redirect()->to('login')->withInput();
+      }else{
+        $user_id = $userInfo['user_id'];
+        session()->set('loggedUser', $user_id);
+        return redirect()->to('dashboard');
+      }
+
+      //     if( !$check_password ){
+      //         return  redirect()->to('auth/login')->with('fail', 'Incorect password.')->withInput();
+      //     }else{
+      //         $session_data = ['user' => $user_info];
+      //         session()->set('LoggedUser', $session_data);
+      //         return  redirect()->to('user/home');
+      //     }
+      } 
     }
+
     public function processRegistration()
     {
-      //Handle the registration backend functionality
-      echo "Works";
+      $validation = $this->validate([
+        'name' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Your full name is required.',
+            ],
+        ],
+        'email' => [
+            'rules'  => 'required|valid_email|is_unique[tbl_users.email]',
+            'errors' => [
+                'required' => 'Your email address is required.',
+                'valid_email' => 'Kindly enter a valid email address e.g email@example.com',
+                'is_unique' => 'This email address is already taken.',
+            ],
+        ],
+        'password' => [
+            'rules'  => 'required|min_length[5]|max_length[20]',
+            'errors' => [
+                'required' => 'You must enter a password.',
+                'min_length' => 'Your password must have at least 5 characters.',
+                'max_length' => 'Your password should not exceed 20 characters.',
+            ],
+        ],
+        'confirmation' => [
+            'rules'  => 'matches[password]',
+            'errors' => [
+                'required' => 'You must confirm your password.',
+                'min_length' => 'Your password must have at least 5 characters.',
+                'max_length' => 'Your password should not exceed 20 characters.',
+                'matches' => 'The password entered does not match.',
+            ],
+        ],
+    ]);
+
+      if(!$validation){
+        return view('auth/registration', ['validation'=>$this->validator]);
+      }else{
+        //echo 'Form validated successfully';
+        $name = $this->request->getPost('name');
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+
+        $values = [
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make($password),
+        ];
+
+        $userModel = new \App\Models\UserModel();
+        $query = $userModel->insert($values);
+
+        if(!$query)
+        {
+          return redirect()->back()->with('fail','Something went wrong, please try again.');
+          //return redirect()->to('registration')->with('fail','Something went wrong, Please try again.');
+        }else{
+          return redirect()->to('registration')->with('success','Registration successful. A link has been sent to your email to activate your account.');
+        }
+
+      }
+
     }
+
+    public function logout(){
+      if(session()->has('loggedUser')){
+      session()->remove('loggedUser');
+      return redirect()->to('login')->with('fail','You are logged out.');
+      } 
+    }
+
 }
