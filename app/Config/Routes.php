@@ -31,6 +31,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('activate/(:segment)/(:segment)','Auth::activate/$email/$name');
+$routes->get('processReset/(:segment)','Auth::processReset/$email');
 
 
 $routes->add('login', 'Auth::login');
@@ -41,6 +42,10 @@ $routes->add('processRegistration', 'Auth::processRegistration');
 $routes->add('logout', 'Auth::logout');
 $routes->add('activate', 'Auth::activate');
 $routes->add('logoutn', 'Auth::logoutn');
+$routes->add('reset', 'Auth::reset');
+$routes->add('processEmail', 'Auth::processEmail');
+$routes->add('processReset', 'Auth::processReset');
+
 
 
 

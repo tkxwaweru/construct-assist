@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/bootstrap.min.css')?>">
-    <title>Login</title>
+    <title>Password Recovery</title>
 </head>
 <body>
     <div class="container">
         <div class="row" style="margin-top: 45px;">
             <div class="col-md-4 col-md-offset-4">
-                <h4>Log in to your account</h4><br>
-                <form action="<?php echo base_url('processLogin')?>" method="post">
+                <h4>Password Recovery</h4><br>
+                <form action="<?php echo base_url('processEmail')?>" method="post">
 
                 <?php csrf_field(); ?>
                 <?php if(!empty(session()->getFlashdata('fail'))) : ?>
@@ -19,21 +19,13 @@
                 <?php endif ?>
 
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email">Email your email</label>
                         <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" value="<?= set_value('email'); ?>">
                         <span class="text-danger"><?= isset($validation) ? display_error($validation, 'email') : '' ?></span>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" value="<?= set_value('password'); ?>">
-                        <span class="text-danger"><?= isset($validation) ? display_error($validation, 'password') : '' ?></span>
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>  
                     </div>
-                    <a href="<?php echo site_url('reset'); ?>">Forgot password?</a><br><br>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Log in</button>  
-                    </div>
-                    <br>
-                    <a href="<?php echo site_url('registration'); ?>">Create account</a>
                 </form>
             </div>
         </div>
