@@ -124,7 +124,7 @@ class Auth extends BaseController
                 // Email sending component:
                 $email = \Config\Services::email();
 
-                $email->setFrom('construct.assist.254@gmail.com', 'Constrct-Assist');
+                $email->setFrom('construct.assist.254@gmail.com', 'Construct-Assist');
                 $email->setTo($values['email']);
                 $email->setSubject('Account Activation');
                 $email->setMessage('Hello ' . $values['name'] . ',<br><br>' . 'Use this link to activate your account' . ' ' .
@@ -140,23 +140,27 @@ class Auth extends BaseController
         }
     }
 
+
     public function activate()
     {
-        $email = $this->request->uri->getSegment(2);
-        $name = $this->request->uri->getSegment(3);
-
-        session_start();
-
-        $_SESSION['email'] = urldecode($email);
-        $_SESSION['name'] = urldecode($name);
-
+        $email = urldecode($this->request->uri->getSegment(2));
+        $name = urldecode($this->request->uri->getSegment(3));
+    
+        // Access the session service
+        $session = session();
+    
+        // Store email and name in session variables
+        $session->set('email', $email);
+        $session->set('name', $name);
+    
         $data = [
-            'email' => isset($_SESSION['email']) ? $_SESSION['email'] : null,
-            'name'  => isset($_SESSION['name']) ? $_SESSION['name'] : null,
+            'email' => $session->get('email'),
+            'name' => $session->get('name'),
         ];
-
+    
         return view('auth/dashboard2.php', $data);
     }
+
 
     public function reset()
     {
@@ -186,7 +190,7 @@ class Auth extends BaseController
             // Email sending component:
             $eMail = \Config\Services::email();
 
-            $eMail->setFrom('construct.assist.254@gmail.com', 'Constrct-Assist');
+            $eMail->setFrom('construct.assist.254@gmail.com', 'Construct-Assist');
             $eMail->setTo($values['email']);
             $eMail->setSubject('Password Reset');
             $eMail->setMessage('Use this link to reset your password' . ' ' .
@@ -203,17 +207,17 @@ class Auth extends BaseController
 
     public function processReset()
     {
-      $email = $this->request->uri->getSegment(2);
-     
-      session_start();
-
-      $_SESSION['email'] = urldecode($email);
-
-      $data = [
-          'email' => isset($_SESSION['email']) ? $_SESSION['email'] : null,
-      ];
-
-      return view('auth/password.php', $data);
+        $email = $this->request->uri->getSegment(2);
+    
+        // session_start();  // Remove this line
+    
+        $_SESSION['email'] = urldecode($email);
+    
+        $data = [
+            'email' => isset($_SESSION['email']) ? $_SESSION['email'] : null,
+        ];
+    
+        return view('auth/password.php', $data);
     }
 
     public function logout()
