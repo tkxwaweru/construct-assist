@@ -13,7 +13,7 @@
                 <h3>Password reset for: <?php echo $email; ?></h3><br>
                 <h4>Reset your password</h4><br>
 
-                <form action="<?php echo base_url('')?>" method="post">
+                <form action="<?php echo base_url('processPassword')?>" method="post">
 
                 <?php csrf_field(); ?>
                 <?php if(!empty(session()->getFlashdata('fail'))) : ?>

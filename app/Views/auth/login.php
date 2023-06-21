@@ -18,6 +18,11 @@
                     <div class="alert alert-danger"><?= session()->getFlashdata('fail'); ?></div>
                 <?php endif ?>
 
+                <?php csrf_field(); ?>
+                <?php if(!empty(session()->getFlashdata('success'))) : ?>
+                    <div class="alert alert-success"><?= session()->getFlashdata('success'); ?></div>
+                <?php endif ?>
+
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" value="<?= set_value('email'); ?>">

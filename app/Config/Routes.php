@@ -45,6 +45,7 @@ $routes->add('logoutn', 'Auth::logoutn');
 $routes->add('reset', 'Auth::reset');
 $routes->add('processEmail', 'Auth::processEmail');
 $routes->add('processReset', 'Auth::processReset');
+$routes->add('processPassword', 'Auth::processPassword');
 
 
 

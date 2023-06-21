@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Libraries\Hash;
 
+
 class Auth extends BaseController
 {
     public function __construct()
@@ -108,11 +109,13 @@ class Auth extends BaseController
             $name = $this->request->getPost('name');
             $email = $this->request->getPost('email');
             $password = $this->request->getPost('password');
+            $account = 1;
 
             $values = [
                 'name'     => $name,
                 'email'    => $email,
                 'password' => Hash::make($password),
+                'account_status' => $account
             ];
 
             $userModel = new UserModel();
@@ -209,8 +212,6 @@ class Auth extends BaseController
     {
         $email = $this->request->uri->getSegment(2);
     
-        // session_start();  // Remove this line
-    
         $_SESSION['email'] = urldecode($email);
     
         $data = [
@@ -219,6 +220,57 @@ class Auth extends BaseController
     
         return view('auth/password.php', $data);
     }
+
+    public function processPassword()
+    {
+        $validation = $this->validate([
+            'password' => [
+                'rules' => 'required|min_length[5]|max_length[20]',
+                'errors' => [
+                    'required'   => 'You must enter a password.',
+                    'min_length' => 'Your password must have at least 5 characters.',
+                    'max_length' => 'Your password should not exceed 20 characters.',
+                ],
+            ],
+            'confirmation' => [
+                'rules' => 'matches[password]',
+                'errors' => [
+                    'required'   => 'You must confirm your password.',
+                    'min_length' => 'Your password must have at least 5 characters.',
+                    'max_length' => 'Your password should not exceed 20 characters.',
+                    'matches'    => 'The password entered does not match.',
+                ],
+            ],
+        ]);
+    
+        if (!$validation) {
+            return view('auth/password', ['validation' => $this->validator]);
+        }
+    
+        $previousUrl = previous_url();
+        $lastSlashPos = strrpos($previousUrl, '/');
+        $email = substr($previousUrl, $lastSlashPos + 1);
+
+        $password = $this->request->getPost('password');
+
+	$db = \Config\Database::connect();
+    
+        $data = ['password' => Hash::make($password)];
+	$db->table('tbl_users')->where('email', $email)->update($data);
+    
+        if (!$db) {
+            return redirect()->back()->with('fail', 'User not found.');
+        }else{
+            session()->setFlashdata('success', 'Password updated.');
+            return redirect()->to('login');
+        }
+    }
+    
+    
+
+
+
+
 
     public function logout()
     {
