@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="<?= base_url('bootstrap/css/bootstrap.min.css') ?>">
-  <title>Dashboard</title>
+  <meta charset="UTF-8" />
+  <title>Dashboard.home</title>
+  <link rel="stylesheet" href="<?= base_url('css/dashboard.css') ?>">
+  <!-- Font Awesome Cdn Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 </head>
 <body>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 offset-md-2 bg-success" style="margin-top:30px">
-             <div class="text-center p-4 font-bold text-white">
-                DASHBOARD
-             </div>
-             <table>
-                <thead>
-                  <tr>
-                    <th>Name &emsp;</th>
-                    <th>Email&emsp;</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <td><?php echo $name; ?> &emsp;</td>
-                  <td><?php echo $email; ?> &emsp;</td>
-                  <td><a href="<?php echo site_url('logoutn'); ?>">Logout</a></td>
-                </tbody>
-             </table>
-        </div>
+  <header class="header">
+    <div class="title">
+      <span>Dashboard</span>
     </div>
+    <div class="header-icons">
+      <div class="account">
+        <h4><h4><<?php echo $email; ?>></h4></h4>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <nav>
+      <div class="side_navbar">
+        <a class="active" href="#">Home</a>
+        <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
+      </div>
+    </nav>
+
+    <div class="main-body">
+      <h2>Home</h2>
+      <div class="promo_card">
+        <h1>Welcome:&nbsp; <?php echo $name; ?> </h1>
+        <p>This is your dashboard</p>
+      </div>
+    </div>
+    </div>
+  </div>
 </body>
 </html>

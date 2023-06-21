@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/bootstrap.min.css')?>">
+    <link rel="stylesheet" href="<?= base_url('css/auth-style.css')?>">
     <title>Password Reset</title>
 </head>
 <body>
+    <img src="<?= base_url('images/icon.png')?>" alt="logo">
     <div class="container">
         <div class="row" style="margin-top: 45px;">
-            <div class="col-md-4 col-md-offset-4">
+     
+            <div class="col-md-4 col-md-offset-4 centered-div">
                 <h3>Password reset for: <?php echo $email; ?></h3><br>
                 <h4>Reset your password</h4><br>
 
@@ -38,6 +41,8 @@
 
                 </form>
             </div>
+            
+        </div>
         </div>
     </div>
 </body>
