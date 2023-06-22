@@ -50,6 +50,7 @@ nav{
   display: flex;
   flex-direction: column;
   height: 100vh;
+  width: 250px;
 }
 .side_navbar span{
   color: gray;
@@ -86,7 +87,7 @@ nav{
   margin-top: 10px;
   border-radius: 8px;
   padding: 0.5rem 1rem 1rem 3rem;
-  background: #d5e5ff;
+  background: white;
 }
 .promo_card h1{
   margin: 8px;
