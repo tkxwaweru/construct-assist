@@ -129,9 +129,10 @@ class Auth extends BaseController
 
                 $email->setFrom('construct.assist.254@gmail.com', 'Construct-Assist');
                 $email->setTo($values['email']);
-                $email->setSubject('Account Activation');
-                $email->setMessage('Hello ' . $values['name'] . ',<br><br>' . 'Use this link to activate your account' . ' ' .
-                    "<a href='" . base_url() . "activate/" . $values['email'] . "/" . $values['name'] . "'> Click here</a>");
+                $email->setSubject('WELCOME TO CONSTRUCT-ASSIST');
+                $email->setMessage('Hello ' . $values['name'] . ',<br><br>' . 'Your Account has been created successfully.<br><br> 
+                Click on the link provided to log in and access your dashboard.' . ' ' .
+                    "<a href='" . base_url('login'). "'> Click here</a>");
 
                 // Send email
                 if ($email->send()) {
