@@ -8,7 +8,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Dasboard.Manager</title>
-  <link rel="stylesheet" href="<?= base_url('css/dashboard.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('css/manager-dashboard.css') ?>">
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 </head>

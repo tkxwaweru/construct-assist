@@ -10,7 +10,7 @@
   font-family: "Poppins", sans-serif;
 }
 body{
-  background: #d5d4fc;
+  background: #476c8a;
 }
 .header{
   display: flex;
@@ -72,7 +72,7 @@ nav{
   background: rgb(235, 235, 235);
 }
 .side_navbar .active{
-  background-color: #d5e5ff;
+  background-color: #7f8e9e;
   color: white;
 }
 

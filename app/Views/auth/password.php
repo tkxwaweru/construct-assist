@@ -6,6 +6,40 @@
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/bootstrap.min.css')?>">
     <link rel="stylesheet" href="<?= base_url('css/auth-style.css')?>">
     <title>Password Reset</title>
+    <style>
+        #password-guidelines {
+            display: none;
+            position: absolute;
+            top: 55%;
+            left: calc(100% + 10px);
+            transform: translateY(-50%);
+            padding: 5px;
+            width: 250px; 
+            background-color: #ffcc5c;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+    <script>
+        function showPasswordGuidelines() {
+            const passwordField = document.getElementById('password');
+            const passwordValue = passwordField.value;
+            const passwordGuidelines = document.getElementById('password-guidelines');
+
+            if (passwordValue.length > 0) {
+                let guidelines = "";
+
+                guidelines += "<div>Password must have at least 6 characters.</div>";
+                guidelines += "<div>Password must include an uppercase character.</div>";
+                guidelines += "<div>Password must include a number.</div>";
+
+                passwordGuidelines.innerHTML = guidelines;
+                passwordGuidelines.style.display = 'block';
+            } else {
+                passwordGuidelines.style.display = 'none';
+            }
+        }
+    </script>
 </head>
 <body>
     <img src="<?= base_url('images/icon.png')?>" alt="logo">
@@ -25,7 +59,8 @@
 
                     <div class="form-group">
                         <label for="password">Enter New Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" value="<?= set_value('password'); ?>">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" value="<?= set_value('password'); ?>" onkeyup="showPasswordGuidelines()">
+                        <div id="password-guidelines"></div>
                         <span class="text-danger"><?= isset($validation) ? display_error($validation, 'password') : '' ?></span>
                     </div>
 
