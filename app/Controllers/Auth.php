@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Libraries\Hash;
-
+use Config\Services;
 
 class Auth extends BaseController
 {
@@ -13,18 +13,21 @@ class Auth extends BaseController
         helper(['url', 'form']);
     }
 
+
     public function login()
     {
         // Load the login module
-        return view('auth/login.php');
+         return view('auth/login.php');
     }
 
+    
     public function registration()
     {
         // Load the registration module
         return view('auth/registration.php');
     }
 
+    
     public function processLogin()
     {
         // Handle the login backend functionality
@@ -54,18 +57,44 @@ class Auth extends BaseController
             $password = $this->request->getPost('password');
             $userModel = new UserModel();
             $userInfo = $userModel->where('email', $email)->first();
+
+            if ($userInfo === null) {
+                session()->setFlashdata('fail', 'Specified email address not found.');
+                return redirect()->to('login')->withInput();
+            }
+
             $check_password = Hash::check($password, $userInfo['password']);
 
             if (!$check_password) {
                 session()->setFlashdata('fail', 'Incorrect password');
                 return redirect()->to('login')->withInput();
             } else {
+                session()->start();
                 $user_id = $userInfo['user_id'];
                 session()->set('loggedUser', $user_id);
-                return redirect()->to('dashboard');
+                // return redirect()->to('dashboard');
+                $role_id = $userInfo['role_id'];
+                switch ($role_id) {
+                    case 1:
+                        return redirect()->to('admin-dashboard');
+                        break;
+                    case 2:
+                        return redirect()->to('manager-dashboard');
+                        break;
+                    case 3:
+                        return redirect()->to('professional-dashboard');
+                        break;
+                    case 4:
+                        return redirect()->to('provider-dashboard');
+                        break;
+                    default:
+                        return redirect()->back()->with('fail', 'Something went wrong, please try again.');
+                        break;
+                }
             }
         }
     }
+
 
     public function processRegistration()
     {
@@ -145,31 +174,11 @@ class Auth extends BaseController
     }
 
 
-    public function activate()
-    {
-        $email = urldecode($this->request->uri->getSegment(2));
-        $name = urldecode($this->request->uri->getSegment(3));
-    
-        // Access the session service
-        $session = session();
-    
-        // Store email and name in session variables
-        $session->set('email', $email);
-        $session->set('name', $name);
-    
-        $data = [
-            'email' => $session->get('email'),
-            'name' => $session->get('name'),
-        ];
-    
-        return view('auth/dashboard2.php', $data);
-    }
-
-
     public function reset()
     {
         return view('auth/email.php');
     }
+
 
     public function processEmail()
     {
@@ -209,6 +218,7 @@ class Auth extends BaseController
         }
     }
 
+
     public function processReset()
     {
         $email = $this->request->uri->getSegment(2);
@@ -221,6 +231,7 @@ class Auth extends BaseController
     
         return view('auth/password.php', $data);
     }
+
 
     public function processPassword()
     {
@@ -254,10 +265,10 @@ class Auth extends BaseController
 
         $password = $this->request->getPost('password');
 
-	$db = \Config\Database::connect();
+	    $db = \Config\Database::connect();
     
         $data = ['password' => Hash::make($password)];
-	$db->table('tbl_users')->where('email', $email)->update($data);
+	    $db->table('tbl_users')->where('email', $email)->update($data);
     
         if (!$db) {
             return redirect()->back()->with('fail', 'User not found.');
@@ -267,23 +278,23 @@ class Auth extends BaseController
         }
     }
     
-
+    
     public function logout()
     {
-        if (session()->has('loggedUser')) {
-            session()->remove('loggedUser');
-        }
-        return redirect()->to('login')->with('fail', 'You are logged out.');
-    }
-
-    public function logoutn()
-    {
-        return redirect()->to('login')->with('fail', 'You are logged out.')->withCookies()->withHeaders([
+        session()->destroy();
+    
+        $response = Services::response();
+        $response->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->setHeader('Pragma', 'no-cache')
+            ->setHeader('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
+    
+        return redirect()->to('login')->with('fail', 'You are logged out.')->withHeaders([
             'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
             'Pragma'        => 'no-cache',
             'Expires'       => 'Sat, 01 Jan 2000 00:00:00 GMT',
         ]);
     }
+
 }
 
 ?>

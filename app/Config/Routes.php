@@ -37,11 +37,16 @@ $routes->get('processReset/(:segment)','Auth::processReset/$email');
 $routes->add('login', 'Auth::login');
 $routes->add('registration', 'Auth::registration');
 $routes->add('dashboard', 'Dashboard::index');
+
+$routes->add('admin-dashboard', 'Dashboard::admin');
+$routes->add('manager-dashboard', 'Dashboard::manager');
+$routes->add('professional-dashboard', 'Dashboard::professional');
+$routes->add('provider-dashboard', 'Dashboard::provider');
+
 $routes->add('processLogin', 'Auth::processLogin');
 $routes->add('processRegistration', 'Auth::processRegistration');
 $routes->add('logout', 'Auth::logout');
 $routes->add('activate', 'Auth::activate');
-$routes->add('logoutn', 'Auth::logoutn');
 $routes->add('reset', 'Auth::reset');
 $routes->add('processEmail', 'Auth::processEmail');
 $routes->add('processReset', 'Auth::processReset');

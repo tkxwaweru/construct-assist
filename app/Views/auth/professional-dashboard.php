@@ -1,8 +1,13 @@
+<?php 
+  if (!isset($userInfo['email']) || !isset($userInfo['name'])){
+    return redirect()->to('login');
+  } else {
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Dashboard.home</title>
+  <title>Dashboard.Professional</title>
   <link rel="stylesheet" href="<?= base_url('css/dashboard.css') ?>">
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
@@ -14,7 +19,7 @@
     </div>
     <div class="header-icons">
       <div class="account">
-        <h4><h4><<?php echo $email; ?>></h4></h4>
+          <h4><?= $userInfo['email']; ?></h4>
       </div>
     </div>
   </header>
@@ -30,11 +35,14 @@
     <div class="main-body">
       <h2>Home</h2>
       <div class="promo_card">
-        <h1>Welcome:&nbsp; <?php echo $name; ?> </h1>
-        <p>This is your dashboard</p>
+          <h1>Welcome: <?= $userInfo['name']; ?></h1>
+          <p>This is your dashboard</p>
       </div>
-    </div>
     </div>
   </div>
 </body>
 </html>
+
+<?php 
+  }
+?>
