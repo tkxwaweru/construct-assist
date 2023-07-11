@@ -10,7 +10,7 @@
         #password-guidelines {
             display: none;
             position: absolute;
-            top: 55%;
+            top: 70%;
             left: calc(100% + 10px);
             transform: translateY(-50%);
             padding: 5px;
@@ -66,6 +66,21 @@
                         <label for="email">Email</label>
                         <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" value="<?= set_value('email'); ?>">
                         <span class="text-danger"><?= isset($validation) ? display_error($validation, 'email') : '' ?></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone_number">Phone Number</label>
+                        <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Enter your phone number" value="<?= set_value('phone_number'); ?>">
+                        <span class="text-danger"><?= isset($validation) ? display_error($validation, 'phone_number') : '' ?></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="role_id">Occupation</label>
+                        <select class="form-control" id="role_id" name="role_id">
+                            <option value=" ">"Select one"</option>
+                            <option value="2">Project Manager</option>
+                            <option value="3">Professional</option>
+                            <option value="4">Service Provider</option>
+                        </select>
+                        <span class="text-danger"><?= isset($validation) ? display_error($validation, 'role_id') : '' ?></span>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>

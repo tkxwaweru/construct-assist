@@ -113,6 +113,20 @@ class Auth extends BaseController
                     'is_unique'   => 'This email address is already taken.',
                 ],
             ],
+            'phone_number' => [
+                'rules'  => 'required|min_length[10]|max_length[10]',
+                'errors' => [
+                    'required'   => 'You must enter a phone number.',
+                    'min_length' => 'A Kenyan phone number only has 10 digits eg. 0712345678.',
+                    'max_length' => 'A Kenyan phone number only has 10 digits eg. 0712345678.',
+                ],
+            ],
+            'role_id' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required'   => 'You must select an occupation.',
+                ],
+            ],
             'password' => [
                 'rules'  => 'required|min_length[5]|max_length[20]',
                 'errors' => [
@@ -137,12 +151,16 @@ class Auth extends BaseController
         } else {
             $name = $this->request->getPost('name');
             $email = $this->request->getPost('email');
+            $phone_number = $this->request->getPost('phone_number');
+            $role_id = $this->request->getPost('role_id');
             $password = $this->request->getPost('password');
             $account = 1;
 
             $values = [
                 'name'     => $name,
                 'email'    => $email,
+                'phone_number'    =>  $phone_number,
+                'role_id'    => $role_id,
                 'password' => Hash::make($password),
                 'account_status' => $account
             ];
