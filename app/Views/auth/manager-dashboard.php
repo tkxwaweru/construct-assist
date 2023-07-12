@@ -29,6 +29,7 @@
       <div class="side_navbar">
         <a class="active" href="#">Home</a>
         <a href="<?php echo site_url('managerProfile'); ?>">Manage Profile</a>
+        <a href="<?php echo site_url('enlistProfessionals'); ?>">Enlist Professionals</a>
         <a href="<?php echo site_url('enlistServices'); ?>">Enlist Services</a>
         <a href="<?php echo site_url('viewTeam'); ?>">View Team</a>
         <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>

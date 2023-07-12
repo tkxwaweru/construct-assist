@@ -60,7 +60,10 @@ $routes->add('processPassword', 'Auth::processPassword');
 $routes->add('managerHome', 'Manager::managerHome');
 $routes->add('managerProfile', 'Manager::managerProfile');
 $routes->add('enlistServices', 'Manager::enlistServices');
+$routes->add('enlistProfessionals', 'Manager::enlistProfessionals');
 $routes->add('viewTeam', 'Manager::viewTeam');
+$routes->add('searchProfessionals', 'Manager::searchProfessionals');
+$routes->add('searchServices', 'Manager::searchServices');
 
 
 // Routes for admin related functions

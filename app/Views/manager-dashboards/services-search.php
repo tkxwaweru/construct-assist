@@ -35,27 +35,8 @@
       <h2>Home</h2>
       <div class="promo_card">
           <h2>Profile: <?= session('name'); ?></h2>
-          <p> Enlist Services:</p>
-            <div class="form-container">
-                <form action="<?php echo base_url('searchServices')?>" method="post">
-                  <div class="content">
-                    <h3>What kind of services are you looking for?</h3>
-                    <div class="input-field">
-                      <select name="service_id" id="service_id">
-                        <option value=" ">"Select one"</option>
-                        <option value="1">Material Supply</option>
-                        <option value="2">Transportation</option>
-                        <option value="3">Equipment Rental</option>
-                        <option value="4">Waste Management</option>
-                        <option value="5">Quality Control and Testing </option>
-                      </select>
-                    </div>
-                  </div>
-                  <br>
-                  <button type="submit" class="search">Search</button>  
-                </form>
-            </div> 
-      </div>
+          <p> Recommended Service Providers:</p>
+
     </div>
   </div>
 </body>

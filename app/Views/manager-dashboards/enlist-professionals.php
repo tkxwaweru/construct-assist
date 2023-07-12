@@ -24,8 +24,8 @@
       <div class="side_navbar">
         <a href="<?php echo site_url('managerHome'); ?>">Home</a>
         <a href="<?php echo site_url('managerProfile'); ?>">Manage Profile</a>
-        <a href="<?php echo site_url('enlistProfessionals'); ?>">Enlist Professionals</a>
-        <a class="active" href="#">Enlist Services</a>
+        <a class="active"href="#">Enlist Professionals</a>
+        <a href="<?php echo site_url('enlistServices'); ?>">Enlist Services</a>
         <a href="<?php echo site_url('viewTeam'); ?>">View Team</a>
         <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
       </div>
@@ -35,19 +35,27 @@
       <h2>Home</h2>
       <div class="promo_card">
           <h2>Profile: <?= session('name'); ?></h2>
-          <p> Enlist Services:</p>
+          <p> Enlist Professionals:</p>
             <div class="form-container">
-                <form action="<?php echo base_url('searchServices')?>" method="post">
+                <form action="<?php echo base_url('searchProfessionals')?>" method="post">
                   <div class="content">
-                    <h3>What kind of services are you looking for?</h3>
+                    <h3>What kind of construction professional are you looking for?</h3>
                     <div class="input-field">
-                      <select name="service_id" id="service_id">
-                        <option value=" ">"Select one"</option>
-                        <option value="1">Material Supply</option>
-                        <option value="2">Transportation</option>
-                        <option value="3">Equipment Rental</option>
-                        <option value="4">Waste Management</option>
-                        <option value="5">Quality Control and Testing </option>
+                      <select name="profession_id" id="profession_id">
+                      <option value=" ">"Select one"</option>
+                      <option value="1">Architect</option>
+                      <option value="2">Civil Engineer</option>
+                      <option value="3">Structural Engineer</option>
+                      <option value="4">Quantity Surveyor</option>
+                      <option value="5">Electrician</option>
+                      <option value="6">Plumber</option>
+                      <option value="7">HVAC Technician</option>
+                      <option value="8">Carpenter</option>
+                      <option value="9">Mason</option>
+                      <option value="10">Equipment Operator</option>
+                      <option value="11">Surveyor</option>
+                      <option value="12">Interior Designer</option>
+                      <option value="13">Geotechnical Engineer</option>
                       </select>
                     </div>
                   </div>
