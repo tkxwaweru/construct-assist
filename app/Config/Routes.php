@@ -34,15 +34,18 @@ $routes->get('activate/(:segment)/(:segment)','Auth::activate/$email/$name');
 $routes->get('processReset/(:segment)','Auth::processReset/$email');
 
 
+// Auth routes for views
 $routes->add('login', 'Auth::login');
 $routes->add('registration', 'Auth::registration');
 $routes->add('dashboard', 'Dashboard::index');
 
+// Load various dashboards after login
 $routes->add('admin-dashboard', 'Dashboard::admin');
 $routes->add('manager-dashboard', 'Dashboard::manager');
 $routes->add('professional-dashboard', 'Dashboard::professional');
 $routes->add('provider-dashboard', 'Dashboard::provider');
 
+// Auth routes
 $routes->add('processLogin', 'Auth::processLogin');
 $routes->add('processRegistration', 'Auth::processRegistration');
 $routes->add('logout', 'Auth::logout');
@@ -53,11 +56,13 @@ $routes->add('processReset', 'Auth::processReset');
 $routes->add('processPassword', 'Auth::processPassword');
 
 
-$routes->add('manageProfile', 'Professional::manageProfile');
-
-
-
-
+// Routes for admin related functions
+$routes->add('adminHome', 'Admin::adminHome');
+$routes->add('adminProfile', 'Admin::adminProfile');
+$routes->add('registerAdmin', 'Admin::registerAdmin');
+$routes->add('viewProfessionalRatings', 'Admin::viewProfessionalRatings');
+$routes->add('viewProviderRatings', 'Admin::viewProviderRatings');
+$routes->add('viewUsers', 'Admin::viewUsers');
 
 
 

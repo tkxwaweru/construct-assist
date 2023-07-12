@@ -72,6 +72,12 @@ class Auth extends BaseController
                 session()->start();
                 $user_id = $userInfo['user_id'];
                 session()->set('loggedUser', $user_id);
+                
+                $email = $userInfo['email'];
+                $name = $userInfo['name'];
+                session()->set('email', $email);
+                session()->set('name', $name);
+
                 // return redirect()->to('dashboard');
                 $role_id = $userInfo['role_id'];
                 switch ($role_id) {
