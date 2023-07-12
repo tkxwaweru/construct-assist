@@ -64,6 +64,7 @@ $routes->add('enlistProfessionals', 'Manager::enlistProfessionals');
 $routes->add('viewTeam', 'Manager::viewTeam');
 $routes->add('searchProfessionals', 'Manager::searchProfessionals');
 $routes->add('searchServices', 'Manager::searchServices');
+$routes->add('selectProfessionalEngagement', 'Manager::selectProfessionalEngagement');
 
 
 // Routes for admin related functions

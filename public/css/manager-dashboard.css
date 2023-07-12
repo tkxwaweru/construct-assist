@@ -108,7 +108,7 @@ b{
 
 .form-container{
   margin-left: 40px;
-  width: 750px;
+  width: 800px;
   border: 1px solid;
   background-color: white;
   padding: 40px;
@@ -121,7 +121,7 @@ b{
 }
 
 .input-field select{
-  width: 100%;
+  width: 80%;
   border: 1px solid #999;
 }
 
@@ -157,6 +157,7 @@ b{
   justify-content:space-around;
 }
 table, th, td{
+  text-align: center;
   border: 1px solid;
   border-collapse: collapse;
 }
