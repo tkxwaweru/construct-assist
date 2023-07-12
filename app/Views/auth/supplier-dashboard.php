@@ -8,7 +8,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Dashboard.Professional</title>
-  <link rel="stylesheet" href="<?= base_url('css/professional-dashboard.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('css/supplier-dashboard.css') ?>">
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 </head>
