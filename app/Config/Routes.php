@@ -77,6 +77,14 @@ $routes->add('viewUsers', 'Admin::viewUsers');
 
 // Routes for professional related functions
 $routes->add('professionalProfile', 'Professional::professionalProfile');
+$routes->add('verifyProfessionals', 'Professional::verifyProfessionals');
+$routes->add('viewProfessionalRatings', 'Professional::viewProfessionalRatings');
+
+
+
+// Routes for provider related functions
+$routes->add('providerProfile', 'Provider::providerProfile');
+
 
 
 
