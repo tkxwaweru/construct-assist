@@ -53,6 +53,8 @@ $routes->add('processReset', 'Auth::processReset');
 $routes->add('processPassword', 'Auth::processPassword');
 
 
+$routes->add('manageProfile', 'Professional::manageProfile');
+
 
 
 
