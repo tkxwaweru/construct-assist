@@ -28,6 +28,9 @@
     <nav>
       <div class="side_navbar">
         <a class="active" href="#">Home</a>
+        <a  href="<?php echo base_url('manageProfile'); ?>">Manage Profile</a>
+        <a  href="#">View Ratings</a>
+        <a  href="#">Submit Verification Documentation</a>
         <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
       </div>
     </nav>
