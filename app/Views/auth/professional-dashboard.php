@@ -15,7 +15,7 @@
 <body>
   <header class="header">
     <div class="title">
-      <span>Dashboard</span>
+      <span>Professional Dashboard</span>
     </div>
     <div class="header-icons">
       <div class="account">

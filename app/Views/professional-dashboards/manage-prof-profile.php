@@ -24,8 +24,8 @@
       <div class="side_navbar">
         <a  href="#">Home</a>
         <a  class="active" href="#">Manage Profile</a>
-        <a  href="#">View Ratings</a>
-        <a  href="#">Submit Verification Documentation</a>
+        <a  class="ratings" href="#">View Ratings</a>
+        <a  class="submit-verifications" href="#">Submit Verification Documentation</a>
         <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
       </div>
     </nav>
@@ -35,7 +35,10 @@
       <div class="promo_card">
       <h2>Profile: <?= session('name'); ?></h2>
           <p>This is your dashboard</p>
+      <div class="ratings" >
+        <h2>Ratings for: <?= session('name'); ?></h2>
       </div>
+     </div>
     </div>
   </div>
 </body>
