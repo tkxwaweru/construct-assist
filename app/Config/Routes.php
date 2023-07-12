@@ -56,6 +56,13 @@ $routes->add('processReset', 'Auth::processReset');
 $routes->add('processPassword', 'Auth::processPassword');
 
 
+// Routes for manager related funtions
+$routes->add('managerHome', 'Manager::managerHome');
+$routes->add('managerProfile', 'Manager::managerProfile');
+$routes->add('enlistServices', 'Manager::enlistServices');
+$routes->add('viewTeam', 'Manager::viewTeam');
+
+
 // Routes for admin related functions
 $routes->add('adminHome', 'Admin::adminHome');
 $routes->add('adminProfile', 'Admin::adminProfile');
