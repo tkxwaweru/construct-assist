@@ -8,4 +8,8 @@ class Provider extends BaseController
     {
         return view('welcome_message');
     }
+    public function providerProfile()
+    {
+        return view('provider-dashboards/manage.php');
+    }
 }

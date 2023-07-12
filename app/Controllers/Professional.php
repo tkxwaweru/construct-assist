@@ -13,6 +13,14 @@ class Professional extends BaseController
     
     public function professionalProfile()
     {
-        return view('professional-dashboards/manage-profile.php');
+        return view('professional-dashboards/manage-prof-profile.php');
+    }
+    public function verifyProfessionals()
+    {
+        return view('professional-dashboards/verify-professionals.php');
+    }
+    public function viewProfessionalRatings()
+    { 
+        return view('professional-dashboards/view-professionals-ratings.php');
     }
 }

@@ -28,6 +28,7 @@
     <nav>
       <div class="side_navbar">
         <a class="active" href="#">Home</a>
+        <a  href="<?php echo site_url('providerProfile'); ?>">Manage Profile</a>
         <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
       </div>
     </nav>
