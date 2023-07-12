@@ -1,8 +1,3 @@
-<?php 
-  if (!isset($userInfo['email']) || !isset($userInfo['name'])){
-    return redirect()->to('login');
-  } else {
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +14,7 @@
     </div>
     <div class="header-icons">
       <div class="account">
-          <h4><?= $userInfo['email']; ?></h4>
+          <h4><?= session('email'); ?></h4>
       </div>
     </div>
   </header>
@@ -38,7 +33,7 @@
     <div class="main-body">
       <h2>Home</h2>
       <div class="promo_card">
-          <h1>Welcome: <?= $userInfo['name']; ?></h1>
+      <h2>Profile: <?= session('name'); ?></h2>
           <p>This is your dashboard</p>
       </div>
     </div>
@@ -46,6 +41,3 @@
 </body>
 </html>
 
-<?php 
-  }
-?>

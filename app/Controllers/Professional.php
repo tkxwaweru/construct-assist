@@ -11,7 +11,7 @@ class Professional extends BaseController
         helper(['url', 'form']);
     }
     
-    public function manageProfile()
+    public function professionalProfile()
     {
         return view('professional-dashboards/manage-profile.php');
     }

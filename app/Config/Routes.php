@@ -72,6 +72,10 @@ $routes->add('viewProviderRatings', 'Admin::viewProviderRatings');
 $routes->add('viewUsers', 'Admin::viewUsers');
 
 
+// Routes for professional related functions
+$routes->add('professionalProfile', 'Professional::professionalProfile');
+
+
 
 /*
  * --------------------------------------------------------------------
