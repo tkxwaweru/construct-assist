@@ -27,10 +27,10 @@
   <div class="container">
     <nav>
       <div class="side_navbar">
-        <a class="active" href="#">Home</a>
+        <a class="active" href="<?php echo site_url('professionalHome'); ?>">Home</a>
         <a  href="<?php echo site_url('professionalProfile'); ?>">Manage Profile</a>
-        <a  href="#">View Ratings</a>
-        <a  href="#">Submit Verification Documentation</a>
+        <a  href="<?php echo site_url('professionalRatings'); ?>">View Ratings</a>
+        <a  href="<?php echo site_url('verifyProfessionals'); ?>">Submit Verification Documentation</a>
         <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
       </div>
     </nav>

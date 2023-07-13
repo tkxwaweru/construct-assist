@@ -22,10 +22,11 @@
   <div class="container">
     <nav>
       <div class="side_navbar">
-        <a  href="#">Home</a>
+        <a  href="<?php echo site_url('professionalHome'); ?>">Home</a>
         <a  class="active" href="<?php echo site_url('professionalProfile'); ?>">Manage Profile</a>
-        <a   href="#">View Ratings</a>
-        <a   href="#">Submit Verification Documentation</a>
+        <a   href="<?php echo site_url('professionalRatings'); ?>">View Ratings</a>
+        <a   href="<?php echo site_url('verifyProfessionals'); ?>">Submit Verification Documentation</a>
+        <a    href="<?php echo site_url('ratings'); ?>">Ratings</a>
         <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
       </div>
     </nav>
@@ -37,6 +38,19 @@
           <p>This is your dashboard</p>
       <div class="ratings" >
         <h2>Ratings for: <?= session('name'); ?></h2>
+        <div class="second-body">
+      <a href="<?php echo site_url('reset'); ?>">Password reset</a>
+      <body style = "text-align: center;">
+  
+  
+    <form method="post">
+        <input type="submit" name="button1"
+                class="button" value="OK" />
+          
+        <input type="submit" name="button2"
+                class="button" value="Cancel" />
+    </form>
+</body>
       </div>
      </div>
     </div>
