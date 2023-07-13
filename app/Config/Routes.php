@@ -81,10 +81,15 @@ $routes->add('professionalProfile', 'Professional::professionalProfile');
 $routes->add('verifyProfessionals', 'Professional::verifyProfessionals');
 $routes->add('professionalRatings', 'Professional::professionalRatings');
 $routes->add('professionalHome', 'Professional::professionalHome');
+$routes->add('ratings', 'Professional::ratings');
 
 
 // Routes for provider related functions
 $routes->add('providerProfile', 'Provider::providerProfile');
+$routes->add('providerHome', 'Provider::providerHome');
+$routes->add('verifyProviders', 'Provider::verifyProviders');
+$routes->add('providerRatings', 'Provider::providerRatings');
+$routes->add('ratings', 'Provider::ratings');
 
 
 

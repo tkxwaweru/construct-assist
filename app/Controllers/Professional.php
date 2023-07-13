@@ -27,5 +27,9 @@ class Professional extends BaseController
     {
       return redirect()->to('professional-dashboard');
     }
+    public function ratings()
+    {
+        return view('provider-dashboards/ratings');
+    }
 
 }

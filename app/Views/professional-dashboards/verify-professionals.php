@@ -26,6 +26,7 @@
         <a   href="<?php echo site_url('professionalProfile'); ?>">Manage Profile</a>
         <a   href="<?php echo site_url('professionalRatings'); ?>">View Ratings</a>
         <a   class="active" href="<?php echo site_url('verifyProfessionals'); ?>">Submit Verification Documentation</a>
+        <a    href="<?php echo site_url('ratings'); ?>">Ratings</a>
         <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
       </div>
     </nav>
