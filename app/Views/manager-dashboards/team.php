@@ -36,17 +36,25 @@
       <div class="promo_card">
           <h2>Profile: <?= session('name'); ?></h2>
           <p>Your team:</p>
-          <form action="searchProfessionalEngagements" method="post">
-          <div class="form-content">
-            <div class="input">
-              <label for="email">Email</label>
-              <input class="form-input" type="text"  id="email" name="email" value="<?= session('email'); ?>">
-            </div>
-            <div class="input">
-              <button type="submit" class="form-button">View Team</button> 
-            </div>
-          </div>
-          </form>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Profession</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+            </tbody>
+          </table>
       </div>
     </div>
   </div>

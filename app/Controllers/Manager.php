@@ -81,11 +81,6 @@ class Manager extends BaseController
         return view('manager-dashboards/professionals-search', $data);
     }
 
-    public function selectProfessionalEngagement()
-    {
-        //
-    }
-
     public function searchServices()
     {
         $service_id = $this->request->getPost('service_id');
@@ -126,4 +121,74 @@ class Manager extends BaseController
 
         return view('manager-dashboards/services-search', $data);
     } 
+
+
+    public function selectProfessionalEngagement()
+    {
+        // Retrieve the posted email and name
+        $email = $this->request->getPost('email');
+        $name = $this->request->getPost('name');
+
+        // Retrieve the active session email
+        $sessionEmail = session('email');
+
+        // Query the tbl_users table to find the manager's user ID where the email matches the session email
+        $userModel = new UserModel();
+        $manager = $userModel->where('email', $sessionEmail)->first();
+        $managerId = ($manager !== null) ? $manager['user_id'] : null;
+
+        // Query the tbl_users table to find the professional's user ID where the email matches the posted email
+        $professional = $userModel->where('email', $email)->first();
+        $professionalId = ($professional !== null) ? $professional['user_id'] : null;
+
+        // Store the manager's user ID, professional's user ID, and the integer 1 in the tbl_professional_engagements table
+        $professionalEngagementsModel = new ProfessionalEngagementsModel();
+        if ($managerId !== null && $professionalId !== null) {
+            $professionalEngagementsModel->insert([
+                'manager_id' => $managerId,
+                'professional_id' => $professionalId,
+                'active_engagement' => 1
+            ]);
+        }
+
+        // Retrieve the manager_id, professional_id, and session email
+        $managerEmail = session('email');
+        $managerData = ($managerId !== null) ? $userModel->find($managerId) : null;
+        $professionalData = ($professionalId !== null) ? $userModel->find($professionalId) : null;
+        $professionalsModel = new ProfessionalsModel();
+        $profession = ($professionalData !== null) ? $professionalsModel->find($professionalData['user_id']) : null;
+        $professionsModel = new ProfessionsModel();
+        $professionName = ($profession !== null) ? $professionsModel->find($profession['profession_id'])['profession_name'] : null;
+
+        // Pass the retrieved data to the view-team.php view
+        $data = [
+            'managerData' => $managerData,
+            'professionalData' => $professionalData,
+            'professionName' => $professionName
+        ];
+
+        return view('manager-dashboards/view-team');
+    }
+
+
+    
+    public function selectProviderEngagement()
+    {
+        //
+    }
+
+    public function searchProfessionalEngagements()
+    {
+        //
+    }
+
+    public function searchProviderEngagements()
+    {
+        //
+    }
+
+    public function rateService()
+    {
+        //
+    }
 }
