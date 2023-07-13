@@ -65,6 +65,8 @@ $routes->add('viewTeam', 'Manager::viewTeam');
 $routes->add('searchProfessionals', 'Manager::searchProfessionals');
 $routes->add('searchServices', 'Manager::searchServices');
 $routes->add('selectProfessionalEngagement', 'Manager::selectProfessionalEngagement');
+$routes->add('selectProviderEngagement', 'Manager::selectProviderEngagement');
+$routes->add('rateService', 'Manager::rateService');
 
 
 // Routes for admin related functions

@@ -30,11 +30,12 @@
         </nav>
 
         <div class="main-body">
-            <h2>Professionals Search Results</h2>
+            <h2>Professionals Search Results (Rated out of 5)</h2>
             <div class="form-container">
                   <div class="content">
                     <div class="search-results">
                         <h3>Results for Profession: <?= $profession_name; ?></h3>
+                        <br>
                         <?php if (!empty($professionalsData)) : ?>
                             <table>
                                 <thead>
@@ -67,6 +68,26 @@
                         <?php else : ?>
                             <p>No professionals found for the selected profession.</p>
                         <?php endif; ?>
+                        <br><br><br>
+                        <form action="<?php echo base_url('selectProfessionalEngagement')?>" method="post">
+                        <div class="content">
+                        <h3>Enter the credentials of your selected professional</h3>
+                        <br>
+                            <div class="form-content">
+                                <div class="input">
+                                    <label for="name">Name</label>
+                                    <input class="form-input" type="text"  id="name" name="name" placeholder="Enter the professional's name">
+                                </div>
+                                <div class="input">
+                                    <label for="email">Email</label>
+                                    <input class="form-input" type="text"  id="email" name="email" placeholder="Enter the professional's email">
+                                </div>
+                                <div class="input">
+                                    <button type="submit" class="form-button">Enlist</button> 
+                                </div>
+                            </div>
+                        </div>
+                        </form>
                     </div>
                   </div>
             </div>

@@ -30,7 +30,8 @@
         </nav>
 
         <div class="main-body">
-            <h2>Service Providers Search Results</h2>
+            <h2>Service Providers Search Results (Rated out of 5)</h2>
+            <br>
             <div class="form-container">
                 <div class="content">
                     <div class="search-results">
@@ -78,6 +79,26 @@
                         <?php else : ?>
                             <p>No service providers found for the selected service.</p>
                         <?php endif; ?>
+                        <br><br><br>
+                        <form action="<?php echo base_url('selectProviderEngagement')?>" method="post">
+                        <div class="content">
+                        <h3>Enter the credentials of your selected service provider</h3>
+                        <br>
+                            <div class="form-content">
+                                <div class="input">
+                                    <label for="name">Name</label>
+                                    <input class="form-input" type="text"  id="name" name="name" placeholder="Enter the professional's name">
+                                </div>
+                                <div class="input">
+                                    <label for="email">Email</label>
+                                    <input class="form-input" type="text"  id="email" name="email" placeholder="Enter the professional's email">
+                                </div>
+                                <div class="input">
+                                    <button type="submit" class="form-button">Enlist</button> 
+                                </div>
+                            </div>
+                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
