@@ -80,6 +80,11 @@ $routes->add('registerAdmin', 'Admin::registerAdmin');
 $routes->add('viewProfessionalRatings', 'Admin::viewProfessionalRatings');
 $routes->add('viewProviderRatings', 'Admin::viewProviderRatings');
 $routes->add('viewUsers', 'Admin::viewUsers');
+$routes->add('adminPasswordRequest', 'Admin::adminPasswordRequest');
+$routes->add('adminAccountDelete', 'Admin::adminAccountDelete');
+$routes->add('adminRegister', 'Admin::adminRegister');
+$routes->add('userAccountModification', 'Admin::userAccountModification');
+
 
 
 // Routes for professional related functions
