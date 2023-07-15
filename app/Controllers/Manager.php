@@ -357,5 +357,42 @@ class Manager extends BaseController
         // Redirect or display success message
         return redirect()->to('managerEngagements');
     }
+
+
+    public function managerPasswordRequest(){
+        $email = session('email');
+
+        $values = ['email' => $email];
+
+        // Email sending component:
+        $eMail = \Config\Services::email();
+
+        $eMail->setFrom('construct.assist.254@gmail.com', 'Construct-Assist');
+        $eMail->setTo($values['email']);
+        $eMail->setSubject('Password Reset');
+        $eMail->setMessage('Use this link to reset your password' . ' ' .
+            "<a href='" . base_url() . "processReset/" . $values['email'] . "'> Click here</a>");
+
+        // Send email
+        if ($eMail->send()) {
+            return view('redirects/reset.php');
+        } else {
+            return redirect()->to('reset')->with('fail', 'Something went wrong, please try again.')->withInput();
+        }  
+    }
     
+    public function managerAccountDelete()
+    {           
+        $sessionEmail = session('email');
+
+        $userModel = new UserModel();
+        $user = $userModel->where('email', $sessionEmail)->first();
+
+        // Check if a matching user is found
+        if ($user) {
+            // Update the account status to 0
+            $userModel->update($user['user_id'], ['account_status' => 0]);
+        }
+        return redirect()->to('login')->with('fail', 'Account deleted.');
+    }
 }
