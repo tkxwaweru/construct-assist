@@ -1,9 +1,10 @@
-# CodeIgniter 4 Application Starter
+# Construct-Assist
 
-## What is CodeIgniter?
+## What is Construct-Assist?
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+Construct-Assist is a web application that aims to ease service acquisistion for construction project managers specifically in Nairobi, Kenya. 
+
+The system was built using the codeigniter 4 PHP framework. More information can be found at the [official site](https://codeigniter.com).
 
 This repository holds a composer-installable app starter.
 It has been built from the
