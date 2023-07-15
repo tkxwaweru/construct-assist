@@ -66,6 +66,8 @@ $routes->add('searchProfessionals', 'Manager::searchProfessionals');
 $routes->add('searchServices', 'Manager::searchServices');
 $routes->add('selectProfessionalEngagement', 'Manager::selectProfessionalEngagement');
 $routes->add('selectProviderEngagement', 'Manager::selectProviderEngagement');
+$routes->add('searchProfessionalEngagements', 'Manager::searchProfessionalEngagements');
+$routes->add('searchProviderEngagements', 'Manager::searchProviderEngagements');
 $routes->add('rateService', 'Manager::rateService');
 
 

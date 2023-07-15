@@ -179,7 +179,21 @@ class Manager extends BaseController
 
     public function searchProfessionalEngagements()
     {
-        //
+        $email = $this->request->getPost('email');
+
+        $userModel = new UserModel();
+        $engagementsModel = new ProfessionalEngagementsModel();
+
+        $manager = $userModel->where('email', $email)->first();
+        $managerId = ($manager !== null) ? $manager['user_id'] : null;
+
+        $engagement = $engagementsModel->where('manager_id', $managerId)->first();
+
+        $engagementData = ($managerId !== null) ? $engagementsModel->find($managerId) : null;
+
+
+
+
     }
 
     public function searchProviderEngagements()
