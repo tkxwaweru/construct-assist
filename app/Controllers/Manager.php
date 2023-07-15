@@ -9,6 +9,9 @@ use App\Models\ServicesModel;
 use App\Models\ProvidersModel;
 use App\Models\ProfessionalEngagementsModel;
 use App\Models\ProviderEngagementsModel;
+use App\Models\ProviderRatingsModel;
+use App\Models\ProfessionalRatingsModel;
+
 
 
 class Manager extends BaseController
@@ -125,84 +128,234 @@ class Manager extends BaseController
 
     public function selectProfessionalEngagement()
     {
-        // Retrieve the posted email and name
-        $email = $this->request->getPost('email');
-        $name = $this->request->getPost('name');
-
+        // Retrieve the posted professional email
+        $email = $this->request->getPost('professional');
+        
         // Retrieve the active session email
         $sessionEmail = session('email');
-
+        
         // Query the tbl_users table to find the manager's user ID where the email matches the session email
         $userModel = new UserModel();
         $manager = $userModel->where('email', $sessionEmail)->first();
         $managerId = ($manager !== null) ? $manager['user_id'] : null;
-
-        // Query the tbl_users table to find the professional's user ID where the email matches the posted email
+        
+        // Query the tbl_users table to find the professional's user details where the email matches the posted email
         $professional = $userModel->where('email', $email)->first();
         $professionalId = ($professional !== null) ? $professional['user_id'] : null;
-
-        // Store the manager's user ID, professional's user ID, and the integer 1 in the tbl_professional_engagements table
-        $professionalEngagementsModel = new ProfessionalEngagementsModel();
+        
         if ($managerId !== null && $professionalId !== null) {
-            $professionalEngagementsModel->insert([
-                'manager_id' => $managerId,
-                'professional_id' => $professionalId,
-                'active_engagement' => 1
-            ]);
+            // Retrieve the additional details from tbl_users using professionalId
+            $professionalDetails = $userModel->find($professionalId);
+            
+            if ($professionalDetails !== null) {
+                $professionalName = $professionalDetails['name'];
+                $professionalEmail = $professionalDetails['email'];
+                $professionalPhoneNumber = $professionalDetails['phone_number'];
+                $professionalRoleId = $professionalDetails['role_id'];
+                
+                // Store the manager's user ID, professional's user ID, and other details in the tbl_professional_engagements table
+                $professionalEngagementsModel = new ProfessionalEngagementsModel();
+                $professionalEngagementsModel->insert([
+                    'manager_id' => $managerId,
+                    'professional_id' => $professionalId,
+                    'name' => $professionalName,
+                    'email' => $professionalEmail,
+                    'phone_number' => $professionalPhoneNumber,
+                    'role_id' => $professionalRoleId,
+                    'active_engagement' => 1
+                ]);
+            }
         }
-
-        // Retrieve the manager_id, professional_id, and session email
-        $managerEmail = session('email');
-        $managerData = ($managerId !== null) ? $userModel->find($managerId) : null;
-        $professionalData = ($professionalId !== null) ? $userModel->find($professionalId) : null;
-        $professionalsModel = new ProfessionalsModel();
-        $profession = ($professionalData !== null) ? $professionalsModel->find($professionalData['user_id']) : null;
-        $professionsModel = new ProfessionsModel();
-        $professionName = ($profession !== null) ? $professionsModel->find($profession['profession_id'])['profession_name'] : null;
-
-        // Pass the retrieved data to the view-team.php view
-        $data = [
-            'managerData' => $managerData,
-            'professionalData' => $professionalData,
-            'professionName' => $professionName
-        ];
-
-        return view('manager-dashboards/view-team');
+        
+        // Redirect to a success page or perform any further actions
+        return redirect()->to('managerEngagements');
     }
-
+    
 
     
     public function selectProviderEngagement()
     {
-        //
+             // Retrieve the posted professional email
+             $email = $this->request->getPost('provider');
+        
+             // Retrieve the active session email
+             $sessionEmail = session('email');
+             
+             // Query the tbl_users table to find the manager's user ID where the email matches the session email
+             $userModel = new UserModel();
+             $manager = $userModel->where('email', $sessionEmail)->first();
+             $managerId = ($manager !== null) ? $manager['user_id'] : null;
+             
+             // Query the tbl_users table to find the professional's user details where the email matches the posted email
+             $provider = $userModel->where('email', $email)->first();
+             $providerId = ($provider !== null) ? $provider['user_id'] : null;
+             
+             if ($managerId !== null && $providerId !== null) {
+                 // Retrieve the additional details from tbl_users using professionalId
+                 $providerDetails = $userModel->find($providerId);
+                 
+                 if ($providerDetails !== null) {
+                     $providerName = $providerDetails['name'];
+                     $providerEmail = $providerDetails['email'];
+                     $providerPhoneNumber = $providerDetails['phone_number'];
+                     $providerRoleId = $providerDetails['role_id'];
+                     
+                     // Store the manager's user ID, professional's user ID, and other details in the tbl_professional_engagements table
+                     $providerEngagementsModel = new ProviderEngagementsModel();
+                     $providerEngagementsModel->insert([
+                         'manager_id' => $managerId,
+                         'provider_id' => $providerId,
+                         'name' => $providerName,
+                         'email' => $providerEmail,
+                         'phone_number' => $providerPhoneNumber,
+                         'role_id' => $providerRoleId,
+                         'active_engagement' => 1
+                     ]);
+                 }
+             }
+             
+             // Redirect to a success page or perform any further actions
+             return redirect()->to('managerEngagements');
     }
 
-    public function searchProfessionalEngagements()
+    public function managerEngagements()
     {
-        $email = $this->request->getPost('email');
+        // Retrieve the active session email
+        $sessionEmail = session('email');
 
+        // Query the UserModel to find the manager's user ID where the email matches the session email
         $userModel = new UserModel();
-        $engagementsModel = new ProfessionalEngagementsModel();
-
-        $manager = $userModel->where('email', $email)->first();
+        $manager = $userModel->where('email', $sessionEmail)->first();
         $managerId = ($manager !== null) ? $manager['user_id'] : null;
 
-        $engagement = $engagementsModel->where('manager_id', $managerId)->first();
+        if ($managerId !== null) {
+            // Query the ProviderEngagementsModel and ProfessionalEngagementsModel with the managerId and active_engagement = 1
+            $providerEngagementsModel = new ProviderEngagementsModel();
+            $professionalEngagementsModel = new ProfessionalEngagementsModel();
 
-        $engagementData = ($managerId !== null) ? $engagementsModel->find($managerId) : null;
+            $providerEngagements = $providerEngagementsModel->where('manager_id', $managerId)
+                                                            ->where('active_engagement', 1)
+                                                            ->findAll();
 
+            $professionalEngagements = $professionalEngagementsModel->where('manager_id', $managerId)
+                                                                    ->where('active_engagement', 1)
+                                                                    ->findAll();
 
+            // Prepare the data array
+            $data = [
+                'providerEngagements' => $providerEngagements,
+                'professionalEngagements' => $professionalEngagements
+            ];
 
-
+            // Pass the data array to the view
+            return view('manager-dashboards/view-team', $data);
+        }
     }
 
-    public function searchProviderEngagements()
+    
+    public function rateSelect()
     {
-        //
+        $email = $this->request->getPost('email'); // Get the posted email
+
+        // Query the database using the UserModel to retrieve name and email
+        $userModel = new \App\Models\UserModel();
+        $user = $userModel->where('email', $email)->first();
+
+        if ($user) {
+            $data = [
+                'name' => $user['name'],
+                'email' => $user['email']
+            ];
+        } else {
+            // Handle the case where no user is found for the given email
+            $data = [
+                'name' => '',
+                'email' => $email
+            ];
+        }
+
+        return view('manager-dashboards/manager-rating', $data);
     }
+
 
     public function rateService()
     {
-        //
+        // Retrieve the posted data from the form
+        $email = $this->request->getPost('email');
+        $score = $this->request->getPost('score');
+        $comment = $this->request->getPost('comment');
+    
+        // Get user_id and role_id based on the posted email
+        $userModel = new UserModel();
+        $user = $userModel->where('email', $email)->first();
+        if (!$user) {
+            // Handle case when user is not found
+            // Redirect or display an error message
+        }
+    
+        $user_id = $user['user_id'];
+        $role_id = $user['role_id'];
+    
+        // Process based on role_id
+        if ($role_id == 3) {
+            // Insert into ProfessionalRatingsModel
+            $professionalRatingsModel = new ProfessionalRatingsModel();
+            $professionalRatingsModel->insert([
+                'professional_id' => $user_id,
+                'score' => $score,
+                'comment' => $comment
+            ]);
+    
+            // Update average_rating in ProfessionalsModel
+            $professionalsModel = new ProfessionalsModel();
+            $professional = $professionalsModel->where('user_id', $user_id)->first();            
+            $averageRating = ($professional['average_rating'] + $score) / 2;
+            $professionalsModel->where('user_id', $user_id)->set(['average_rating' => $averageRating])->update();
+            
+    
+            // Update ProfessionalEngagementsModel
+            $professionalEngagementsModel = new ProfessionalEngagementsModel();
+            $professionalEngagement = $professionalEngagementsModel->where('professional_id', $user_id)
+                ->where('active_engagement', 1)
+                ->first();
+            if ($professionalEngagement) {
+                $professionalEngagementsModel->update($professionalEngagement['engagement_id'], [
+                    'active_engagement' => 0,
+                    'conclusion_date' => date('Y-m-d')
+                ]);
+            }
+        } elseif ($role_id == 4) {
+            // Insert into ProviderRatingsModel
+            $providerRatingsModel = new ProviderRatingsModel();
+            $providerRatingsModel->insert([
+                'provider_id' => $user_id,
+                'score' => $score,
+                'comment' => $comment
+            ]);
+    
+            // Update average_rating in ProvidersModel
+            $providersModel = new ProvidersModel();
+            $provider = $providersModel->where('user_id', $user_id)->first();
+            $averageRating = ($provider['average_rating'] + $score) / 2;
+            $providersModel->where('user_id', $user_id)->set(['average_rating' => $averageRating])->update();
+    
+            // Update ProviderEngagementsModel
+            $providerEngagementsModel = new ProviderEngagementsModel();
+            $providerEngagement = $providerEngagementsModel->where('provider_id', $user_id)
+                ->where('active_engagement', 1)
+                ->first();
+            if ($providerEngagement) {
+                $providerEngagementsModel->update($providerEngagement['engagement_id'], [
+                    'active_engagement' => 0,
+                    'conclusion_date' => date('Y-m-d')
+                ]);
+            }
+        } else {
+            // Handle other role IDs if needed
+        }
+    
+        // Redirect or display success message
+        return redirect()->to('managerEngagements');
     }
+    
 }

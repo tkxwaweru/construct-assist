@@ -24,7 +24,7 @@
                 <a href="<?php echo site_url('managerProfile'); ?>">Manage Profile</a>
                 <a href="<?php echo site_url('enlistProfessionals'); ?>">Enlist Professionals</a>
                 <a class="active" href="<?php echo site_url('enlistServices'); ?>">Enlist Services</a>
-                <a href="<?php echo site_url('viewTeam'); ?>">View Team</a>
+                <a href="<?php echo site_url('managerEngagements'); ?>">View Team</a>
                 <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
             </div>
         </nav>
@@ -54,9 +54,9 @@
                                     usort($providersData, function ($a, $b) {
                                         return $b['average_rating'] <=> $a['average_rating'];
                                     });
-                                    
+
                                     $counter = 0; // Initialize a counter variable
-                                    
+
                                     foreach ($providersData as $provider) :
                                         if ($counter >= 5) {
                                             break; // Exit the loop if 5 rows have been displayed
@@ -81,23 +81,34 @@
                         <?php endif; ?>
                         <br><br><br>
                         <form action="<?php echo base_url('selectProviderEngagement')?>" method="post">
-                        <div class="content">
-                        <h3>Enter the credentials of your selected service provider</h3>
-                        <br>
-                            <div class="form-content">
-                                <div class="input">
-                                    <label for="name">Name</label>
-                                    <input class="form-input" type="text"  id="name" name="name" placeholder="Enter the professional's name">
-                                </div>
-                                <div class="input">
-                                    <label for="email">Email</label>
-                                    <input class="form-input" type="text"  id="email" name="email" placeholder="Enter the professional's email">
-                                </div>
-                                <div class="input">
-                                    <button type="submit" class="form-button">Enlist</button> 
+                            <div class="content">
+                                <h3>Select a service provider to add to your team: </h3>
+                                <br>
+                                <div class="form-content">
+                                    <div class="input">
+                                        <label for="provider">Select a service provider</label>
+                                        <select class="form-input" id="provider" name="provider">
+                                            <?php
+                                            $counter = 0; // Initialize a counter variable
+                                            foreach ($providersData as $provider) :
+                                                if ($counter >= 5) {
+                                                    break; // Exit the loop if 5 options have been displayed
+                                                }
+                                            ?>
+                                                <option value="<?= $provider['email']; ?>">
+                                                    <?= $provider['name']; ?> (Email: <?= $provider['email']; ?>, Average Rating: <?= $provider['average_rating']; ?>)
+                                                </option>
+                                            <?php
+                                                $counter++; // Increment the counter after each option is displayed
+                                            endforeach;
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="input">
+                                        <button type="submit" class="form-button">Enlist</button> 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         </form>
                     </div>
                 </div>

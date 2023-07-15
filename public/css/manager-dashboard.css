@@ -179,6 +179,16 @@ table{
   padding-left: 5px;
 }
 
+.form-input-score{
+  margin: 10px 0;
+  display: block;
+  width: 80px;
+  height: 30px;
+  border: 1px solid rgb(54, 54, 54);
+  font-size: 15px;
+  padding-left: 5px;
+}
+
 .form-button{
   width: 400px;
   margin-top: 5px;
@@ -202,6 +212,15 @@ table{
 .form-button:hover{
   opacity: 0.5;
 }
+
+textarea{
+  display: block;
+  width: 500px;
+  height: 150px;
+  border: 1px solid rgb(54, 54, 54);
+}
+
+
 
 
 
