@@ -36,7 +36,7 @@
       <h2>Home</h2>
       <div class="promo_card">
           <h2>Profile: <?= session('name'); ?></h2>
-          <p>Provider Ratings:</p><br>
+          <p>Service Provider Ratings:</p><br>
           <table>
             <tr>
               <th>Rating ID</th>
