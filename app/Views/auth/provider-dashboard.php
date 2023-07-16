@@ -27,8 +27,9 @@
   <div class="container">
     <nav>
       <div class="side_navbar">
-        <a class="active" href="#">Home</a>
+        <a class="active" href="<?php echo site_url('providerRatings'); ?>">Home</a>
         <a  href="<?php echo site_url('providerProfile'); ?>">Manage Profile</a>
+        <a  href="<?php echo site_url('providerRatings'); ?>">View Ratings</a>
         <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
       </div>
     </nav>
@@ -37,7 +38,19 @@
       <h2>Home</h2>
       <div class="promo_card">
           <h1>Welcome: <?= $userInfo['name']; ?></h1>
-          <p>This is your dashboard</p>
+          <p>This is your dashboard. Use the sidebar to navigate to your desired location.</p>
+          <ol>
+            <li>Use <b>Manage Profile</b> to:
+              <ol>
+                <li>Update your password</li>
+                <li>Delete your account</li>
+                <li>Specify the service you provide and the company you represent or submit your certification document</li>
+              </ol>
+            </li>
+            <br>
+            <li>Use <b>View Ratings</b> to view your ratings history.</li>
+            <li>An average rating <b>greater than 4</b> means you have a high likelihood of being recommended to project managers</li>
+          </ol>
       </div>
     </div>
   </div>
