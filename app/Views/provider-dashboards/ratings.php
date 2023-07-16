@@ -21,7 +21,7 @@ if ($mysqli->connect_error) {
  
 // SQL query to select data from database//
 $sql = "SELECT * FROM tbl_professional_ratings ORDER BY score DESC";
-$result = $mysqli ->query($sql);
+$esult = $mysqli ->query($sql);
 $mysqli->close();
 ?>
 <!-- HTML code to display data in tabular format -->

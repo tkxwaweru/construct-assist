@@ -40,16 +40,9 @@
         <h2>Ratings for: <?= session('name'); ?></h2>
         <div class="second-body">
       <a href="<?php echo site_url('reset'); ?>">Password reset</a>
-      <body style = "text-align: center;">
+      <body>
   
   
-    <form method="post">
-        <input type="submit" name="button1"
-                class="button" value="OK" />
-          
-        <input type="submit" name="button2"
-                class="button" value="Cancel" />
-    </form>
 </body>
       </div>
      </div>

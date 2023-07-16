@@ -42,13 +42,7 @@
       <body style = "text-align: center;">
   
   
-    <form method="post">
-        <input type="submit" name="button1"
-                class="button" value="OK" />
-          
-        <input type="submit" name="button2"
-                class="button" value="Cancel" />
-    </form>
+    
 </body>
 </body>
 </div>
