@@ -89,18 +89,21 @@ $routes->add('userAccountModification', 'Admin::userAccountModification');
 
 // Routes for professional related functions
 $routes->add('professionalProfile', 'Professional::professionalProfile');
-$routes->add('verifyProfessionals', 'Professional::verifyProfessionals');
 $routes->add('professionalRatings', 'Professional::professionalRatings');
 $routes->add('professionalHome', 'Professional::professionalHome');
-$routes->add('ratings', 'Professional::ratings');
+$routes->add('professionalPasswordRequest', 'Professional::professionalPasswordRequest');
+$routes->add('professionalAccountDelete', 'Professional::professionalAccountDelete');
+$routes->add('professionalUpdate', 'Professional::professionalUpdate');
+
 
 
 // Routes for provider related functions
 $routes->add('providerProfile', 'Provider::providerProfile');
 $routes->add('providerHome', 'Provider::providerHome');
-$routes->add('verifyProviders', 'Provider::verifyProviders');
 $routes->add('providerRatings', 'Provider::providerRatings');
-$routes->add('ratings', 'Provider::ratings');
+$routes->add('providerPasswordRequest', 'Provider::providerPasswordRequest');
+$routes->add('providerAccountDelete', 'Provider::providerAccountDelete');
+$routes->add('providerUpdate', 'Provider::providerUpdate');
 
 
 

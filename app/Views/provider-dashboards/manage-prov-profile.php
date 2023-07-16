@@ -10,7 +10,7 @@
 <body>
   <header class="header">
     <div class="title">
-      <span>Provider Dashboard</span>
+      <span>Dashboard</span>
     </div>
     <div class="header-icons">
       <div class="account">
@@ -25,35 +25,65 @@
         <a  href="<?php echo site_url('providerHome'); ?>">Home</a>
         <a  class="active" href="<?php echo site_url('providerProfile'); ?>">Manage Profile</a>
         <a  href="<?php echo site_url('providerRatings'); ?>">View Ratings</a>
-        <a  href="<?php echo site_url('verifyProviders'); ?>">Submit Verification Documentation</a>
-        <a    href="<?php echo site_url('ratings'); ?>">Ratings</a>
         <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
       </div>
     </nav>
 
     <div class="main-body">
-      <h2>Home</h2>
+      <h2>Manage Profile</h2>
       <div class="promo_card">
-      <h2>Profile: <?= session('name'); ?></h2>
-          <p>This is your dashboard</p>
+        <h2>Profile: <?= session('name'); ?></h2>
+        <div class="promo_card">
+        <h2>Profile: <?= session('name'); ?></h2>
+        <p>Click on an option:</p>
+          <ol>
+            <li>Reset Password: <a href="<?php echo site_url('providerPasswordRequest'); ?>">Click here</a></li>
+            <li>Delete Account: <a href="<?php echo site_url('providerAccountDelete'); ?>">Click here</a></li>
+          </ol>
+          <br>
+          <div class="form-container">
+            <div class="content">
+              <form action="<?php echo base_url('providerUpdate')?>" method="post" enctype="multipart/form-data">
+            <?php csrf_field(); ?>
+            <?php if(!empty(session()->getFlashdata('fail'))) : ?>
+              <div class="alert alert-danger"><?= session()->getFlashdata('fail'); ?></div>
+            <?php endif ?>
 
-     <div class="second-body">
-      <a href="<?php echo site_url('reset'); ?>">Password reset</a>
-      <body style = "text-align: center;">
-  
-  
-    <form method="post">
-        <input type="submit" name="button1"
-                class="button" value="OK" />
-          
-        <input type="submit" name="button2"
-                class="button" value="Cancel" />
-    </form>
-</body>
-</body>
-</div>
+            <?php if(!empty(session()->getFlashdata('success'))) : ?>
+              <div class="alert alert-success"><?= session()->getFlashdata('success'); ?></div>
+            <?php endif ?>
+              <br>
+              <h2>Update your service details and upload your certification document:</h2>
+              <div class="input-field">
+                <label for="certification_file">Certification:</label>
+                <input class="form-input" type="file" id="certification_file" name="certification_file">
+              </div>
+              <div class="input-field">
+                <label for="service_id">What kind of service do you provide?</label>
+                <div class="content">
+                    <div class="input-field">
+                      <select name="service_id" id="service_id">
+                        <option value=" ">"Select one"</option>
+                        <option value="1">Material Supply</option>
+                        <option value="2">Transportation</option>
+                        <option value="3">Equipment Rental</option>
+                        <option value="4">Waste Management</option>
+                        <option value="5">Quality Control and Testing </option>
+                      </select>
+                    </div>
+                  </div>
+              </div>
+              <br>
+              <div class="input-field">
+                <label for="company">What company do you represent:</label>
+                <input class="form-input" type="text" id="company" name="company">
+              </div>
+            </div>
+            <br>
+            <button type="submit" class="search">Register</button>  
+      </div>
+      </div>
     </div>
-  </div>
 </body>
 </html>
 

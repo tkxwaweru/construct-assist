@@ -10,7 +10,7 @@
 <body>
   <header class="header">
     <div class="title">
-      <span>Provider Dashboard</span>
+      <span>Dashboard</span>
     </div>
     <div class="header-icons">
       <div class="account">
@@ -22,20 +22,38 @@
   <div class="container">
     <nav>
       <div class="side_navbar">
-        <a  href="<?php echo site_url('providerHome'); ?>">Home</a>
-        <a   href="<?php echo site_url('providerProfile'); ?>">Manage Profile</a>
+        <a href="<?php echo site_url('providerHome'); ?>">Home</a>
+        <a href="<?php echo site_url('providerProfile'); ?>">Manage Profile</a>
         <a class="active" href="<?php echo site_url('providerRatings'); ?>">View Ratings</a>
-        <a  href="<?php echo site_url('verifyProviders'); ?>">Submit Verification Documentation</a>
-        <a    href="<?php echo site_url('ratings'); ?>">Ratings</a>
         <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
       </div>
     </nav>
 
     <div class="main-body">
-      <h2>Home</h2>
+      <h2>Your Ratings</h2>
       <div class="promo_card">
-      <h2>Profile: <?= session('name'); ?></h2>
-          <p>This is your dashboard</p>
+        <h2>Profile: <?= session('name'); ?></h2>
+
+        <p>Your average rating (out of 5): <b><?= $averageRating ?? 'N/A'; ?></b></p>
+        <p>Your ratings history:</p>
+        <br>
+        <table class="user-table">
+          <tr>
+            <th>Rating No.</th>
+            <th>Score</th>
+            <th>Comment</th>
+            <th>Date rated</th>
+          </tr>
+          <?php $ratingNo = 1; ?>
+          <?php foreach ($ratings as $rating) : ?>
+            <tr>
+              <td><?= $ratingNo++; ?></td>
+              <td><?= $rating['score']; ?></td>
+              <td><?= $rating['comment']; ?></td>
+              <td><?= $rating['rated_on']; ?></td>
+            </tr>
+          <?php endforeach; ?>
+        </table>
       </div>
     </div>
   </div>
