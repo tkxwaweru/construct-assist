@@ -33,10 +33,50 @@
     </nav>
 
     <div class="main-body">
-      <h2>Home</h2>
+      <h2>Administrator Registration</h2>
       <div class="promo_card">
           <h2>Profile: <?= session('name'); ?></h2>
-          <p>Register a new Administrator:</p>
+          <p>Register a new Administrator:</p><br>
+          <form action="<?php echo base_url('adminRegister')?>" method="post">
+          <?php csrf_field(); ?>
+          <?php if(!empty(session()->getFlashdata('fail'))) : ?>
+            <div class="alert alert-danger"><?= session()->getFlashdata('fail'); ?></div>
+          <?php endif ?>
+
+          <?php if(!empty(session()->getFlashdata('success'))) : ?>
+            <div class="alert alert-success"><?= session()->getFlashdata('success'); ?></div>
+          <?php endif ?>
+            <br>
+            <div class="content">
+              <div class="input-field">
+                <label for="name">Name:</label>
+                <input class="form-input" type="text" id="name" name="name">
+                <span class="text-danger"><?= isset($validation) ? display_error($validation, 'name') : '' ?></span>
+              </div>
+              <div class="input-field">
+                <label for="email">Email:</label>
+                <input class="form-input" type="text" id="email" name="email">
+                <span class="text-danger"><?= isset($validation) ? display_error($validation, 'name') : '' ?></span>
+              </div>
+              <div class="input-field">
+                <label for="email">Phone Number:</label>
+                <input class="form-input" type="text" id="phone_number" name="phone_number">
+                <span class="text-danger"><?= isset($validation) ? display_error($validation, 'phone_number') : '' ?></span>
+              </div>
+              <div class="input-field">
+                <label for="email">Password:</label>
+                <input class="form-input" type="password" id="password" name="password">
+                <span class="text-danger"><?= isset($validation) ? display_error($validation, 'password') : '' ?></span>
+              </div>
+              <div class="input-field">
+                <label for="role_id">Role:</label>
+                <input class="form-input" type="text" id="role_id" name="role_id" placeholder="Administrator" value="1" readonly>
+              </div>
+  
+            </div>
+            <br>
+            <button type="submit" class="search">Register</button>  
+          </form>
       </div>
     </div>
   </div>

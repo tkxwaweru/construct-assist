@@ -31,7 +31,7 @@
         <a href="<?php echo site_url('managerProfile'); ?>">Manage Profile</a>
         <a href="<?php echo site_url('enlistProfessionals'); ?>">Enlist Professionals</a>
         <a href="<?php echo site_url('enlistServices'); ?>">Enlist Services</a>
-        <a href="<?php echo site_url('viewTeam'); ?>">View Team</a>
+        <a href="<?php echo site_url('managerEngagements'); ?>">View Team</a>
         <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
       </div>
     </nav>
@@ -40,7 +40,13 @@
       <h2>Home</h2>
       <div class="promo_card">
           <h1>Welcome: <?= $userInfo['name']; ?></h1>
-          <p>This is your dashboard</p>
+          <p>This is your dashboard. Use the sidebar to navigate to your desired location.</p>
+          <ol>
+            <li>Use <b>Manage Profile</b> to update your password or delete your account.</li>
+            <li>Use <b>Enlist Professionals</b> to recruit a construction professional to your team.</li>
+            <li>Use <b>Enlist Services</b> to recruit a construction service provider to your team.</li>
+            <li>Use <b>View Team</b> to view all individuals in your construction team.</li>
+          </ol>
       </div>
     </div>
   </div>

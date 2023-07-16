@@ -65,10 +65,13 @@ class Auth extends BaseController
 
             $check_password = Hash::check($password, $userInfo['password']);
 
+            $active = $userInfo['account_status'];
+
             if (!$check_password) {
                 session()->setFlashdata('fail', 'Incorrect password');
                 return redirect()->to('login')->withInput();
-            } else {
+            } else 
+             if($active != 0){
                 session()->start();
                 $user_id = $userInfo['user_id'];
                 session()->set('loggedUser', $user_id);
@@ -97,6 +100,9 @@ class Auth extends BaseController
                         return redirect()->back()->with('fail', 'Something went wrong, please try again.');
                         break;
                 }
+            }
+            else{
+                return redirect()->to('login')->with('fail', 'Account does not exist.');
             }
         }
     }

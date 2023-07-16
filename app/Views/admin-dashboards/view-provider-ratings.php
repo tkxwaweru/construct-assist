@@ -36,7 +36,27 @@
       <h2>Home</h2>
       <div class="promo_card">
           <h2>Profile: <?= session('name'); ?></h2>
-          <p>Provider Ratings:</p>
+          <p>Service Provider Ratings:</p><br>
+          <table>
+            <tr>
+              <th>Rating ID</th>
+              <th>Provider ID</th>
+              <th>Score</th>
+              <th>Comment</th>
+              <th>Rated on</th>
+            </tr>
+            <tr>
+            <?php foreach ($provider_ratings as $provider_rating): ?>
+              <tr>
+                <td><?= $provider_rating['provider_rating_id']; ?></td>
+                <td><?= $provider_rating['provider_id']; ?></td>
+                <td><?= $provider_rating['score']; ?></td>
+                <td><?= $provider_rating['comment']; ?></td>
+                <td><?= $provider_rating['rated_on']; ?></td>
+              </tr>
+            <?php endforeach; ?>
+            </tr>
+          </table>
       </div>
     </div>
   </div>

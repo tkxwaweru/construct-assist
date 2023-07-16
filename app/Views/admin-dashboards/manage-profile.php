@@ -36,21 +36,13 @@
       <h2>Home</h2>
       <div class="promo_card">
           <h2>Profile: <?= session('name'); ?></h2>
-          <p>Manage your profile:</p>
+          <p>Click on an option:</p>
+          <ol>
+            <li>Reset Password: <a href="<?php echo site_url('managerPasswordRequest'); ?>">Click here</a></li>
+            <li>Delete Account: <a href="<?php echo site_url('managerAccountDelete'); ?>">Click here</a></li>
+          </ol>
       </div>
-
-      <div class="second-body">
-      <a href="<?php echo site_url('reset'); ?>">Password reset</a>
-      <body style = "text-align: center;">
-  
-  
-    <form method="post">
-        <input type="submit" name="button1"
-                class="button" value="OK" />
-          
-        <input type="submit" name="button2"
-                class="button" value="Cancel" />
-    </form>
+      <body>
 </body>
     </div>
   </div>

@@ -24,7 +24,7 @@
                 <a href="<?php echo site_url('managerProfile'); ?>">Manage Profile</a>
                 <a class="active" href="<?php echo site_url('enlistProfessionals'); ?>">Enlist Professionals</a>
                 <a href="<?php echo site_url('enlistServices'); ?>">Enlist Services</a>
-                <a href="<?php echo site_url('viewTeam'); ?>">View Team</a>
+                <a href="<?php echo site_url('managerEngagements'); ?>">View Team</a>
                 <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
             </div>
         </nav>
@@ -70,23 +70,25 @@
                         <?php endif; ?>
                         <br><br><br>
                         <form action="<?php echo base_url('selectProfessionalEngagement')?>" method="post">
-                        <div class="content">
-                        <h3>Enter the credentials of your selected professional</h3>
-                        <br>
-                            <div class="form-content">
-                                <div class="input">
-                                    <label for="name">Name</label>
-                                    <input class="form-input" type="text"  id="name" name="name" placeholder="Enter the professional's name">
-                                </div>
-                                <div class="input">
-                                    <label for="email">Email</label>
-                                    <input class="form-input" type="text"  id="email" name="email" placeholder="Enter the professional's email">
-                                </div>
-                                <div class="input">
-                                    <button type="submit" class="form-button">Enlist</button> 
+                            <div class="content">
+                                <h3>Select a professional to add to your team:</h3>
+                                <br>
+                                <div class="form-content">
+                                    <div class="input">
+                                        <label for="professional">Select a professional</label>
+                                        <select class="form-input" id="professional" name="professional">
+                                            <?php foreach ($professionalsData as $professional) : ?>
+                                                <option value="<?= $professional['email']; ?>">
+                                                    <?= $professional['name']; ?> (Email: <?= $professional['email']; ?>, Average Rating: <?= $professional['average_rating']; ?>)
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="input">
+                                        <button type="submit" class="form-button">Enlist</button> 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         </form>
                     </div>
                   </div>

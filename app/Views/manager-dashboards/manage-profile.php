@@ -6,6 +6,15 @@
   <link rel="stylesheet" href="<?= base_url('css/manager-dashboard.css') ?>">
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+
+  <script>
+    function confirmAccountDeletion() {
+      if (confirm('Are you sure you want to delete your account?')) {
+        window.location.href = "<?php echo site_url('managerAccountDelete'); ?>";
+      }
+    }
+  </script>
+
 </head>
 <body>
   <header class="header">
@@ -26,7 +35,7 @@
         <a class="active" href="#">Manage Profile</a>
         <a href="<?php echo site_url('enlistProfessionals'); ?>">Enlist Professionals</a>
         <a href="<?php echo site_url('enlistServices'); ?>">Enlist Services</a>
-        <a href="<?php echo site_url('viewTeam'); ?>">View Team</a>
+        <a href="<?php echo site_url('managerEngagements'); ?>">View Team</a>
         <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
       </div>
     </nav>
@@ -35,7 +44,11 @@
       <h2>Home</h2>
       <div class="promo_card">
           <h2>Profile: <?= session('name'); ?></h2>
-          <p>Manage your profile:</p>
+          <p>Click on an option:</p>
+          <ol>
+            <li>Reset Password: <a href="<?php echo site_url('managerPasswordRequest'); ?>">Click here</a></li>
+            <li>Delete Account: <a href="<?php echo site_url('managerAccountDelete'); ?>">Click here</a></li>
+          </ol>
       </div>
     </div>
   </div>
