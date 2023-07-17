@@ -37,45 +37,45 @@
                     <div class="search-results">
                         <h3>Results for Service: <?= $service_name; ?></h3>
                         <?php if (!empty($providersData)) : ?>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone Number</th>
-                                        <th>Service</th>
-                                        <th>Company</th>
-                                        <th>Average Rating</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    // Sort providers data by average_rating in descending order
-                                    usort($providersData, function ($a, $b) {
-                                        return $b['average_rating'] <=> $a['average_rating'];
-                                    });
-
-                                    $counter = 0; // Initialize a counter variable
-
-                                    foreach ($providersData as $provider) :
-                                        if ($counter >= 5) {
-                                            break; // Exit the loop if 5 rows have been displayed
-                                        }
-                                        ?>
+                            <?php
+                            // Filter providers data by average_rating greater than 4
+                            $filteredData = array_filter($providersData, function ($provider) {
+                                return $provider['average_rating'] > 4;
+                            });
+                            
+                            // Sort providers data by average_rating in descending order
+                            usort($filteredData, function ($a, $b) {
+                                return $b['average_rating'] <=> $a['average_rating'];
+                            });
+                            ?>
+                            <?php if (!empty($filteredData)) : ?>
+                                <table>
+                                    <thead>
                                         <tr>
-                                            <td><?= $provider['name']; ?></td>
-                                            <td><?= $provider['email']; ?></td>
-                                            <td><?= $provider['phone_number']; ?></td>
-                                            <td><?= $provider['service_name']; ?></td>
-                                            <td><?= $provider['company']; ?></td>
-                                            <td><?= $provider['average_rating']; ?></td>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                            <th>Service</th>
+                                            <th>Company</th>
+                                            <th>Average Rating</th>
                                         </tr>
-                                        <?php
-                                        $counter++; // Increment the counter after each row is displayed
-                                    endforeach;
-                                    ?>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($filteredData as $provider) : ?>
+                                            <tr>
+                                                <td><?= $provider['name']; ?></td>
+                                                <td><?= $provider['email']; ?></td>
+                                                <td><?= $provider['phone_number']; ?></td>
+                                                <td><?= $provider['service_name']; ?></td>
+                                                <td><?= $provider['company']; ?></td>
+                                                <td><?= $provider['average_rating']; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            <?php else : ?>
+                                <p>No service providers found with an average rating greater than 4.</p>
+                            <?php endif; ?>
                         <?php else : ?>
                             <p>No service providers found for the selected service.</p>
                         <?php endif; ?>
@@ -88,20 +88,11 @@
                                     <div class="input">
                                         <label for="provider">Select a service provider</label>
                                         <select class="form-input" id="provider" name="provider">
-                                            <?php
-                                            $counter = 0; // Initialize a counter variable
-                                            foreach ($providersData as $provider) :
-                                                if ($counter >= 5) {
-                                                    break; // Exit the loop if 5 options have been displayed
-                                                }
-                                            ?>
+                                            <?php foreach ($filteredData as $provider) : ?>
                                                 <option value="<?= $provider['email']; ?>">
                                                     <?= $provider['name']; ?> (Email: <?= $provider['email']; ?>, Average Rating: <?= $provider['average_rating']; ?>)
                                                 </option>
-                                            <?php
-                                                $counter++; // Increment the counter after each option is displayed
-                                            endforeach;
-                                            ?>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                     <div class="input">

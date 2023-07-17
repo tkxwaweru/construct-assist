@@ -32,39 +32,48 @@
         <div class="main-body">
             <h2>Professionals Search Results (Rated out of 5)</h2>
             <div class="form-container">
-                  <div class="content">
+                <div class="content">
                     <div class="search-results">
                         <h3>Results for Profession: <?= $profession_name; ?></h3>
                         <br>
                         <?php if (!empty($professionalsData)) : ?>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone Number</th>
-                                        <th>Profession</th>
-                                        <th>Average Rating</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    // Sort professionals data by average_rating in descending order
-                                    usort($professionalsData, function ($a, $b) {
-                                        return $b['average_rating'] <=> $a['average_rating'];
-                                    });
-                                    ?>
-                                    <?php foreach ($professionalsData as $professional) : ?>
+                            <?php
+                            // Filter professionals data by average_rating greater than 4
+                            $filteredData = array_filter($professionalsData, function ($professional) {
+                                return $professional['average_rating'] > 4;
+                            });
+                            
+                            // Sort professionals data by average_rating in descending order
+                            usort($filteredData, function ($a, $b) {
+                                return $b['average_rating'] <=> $a['average_rating'];
+                            });
+                            ?>
+                            <?php if (!empty($filteredData)) : ?>
+                                <table>
+                                    <thead>
                                         <tr>
-                                            <td><?= $professional['name']; ?></td>
-                                            <td><?= $professional['email']; ?></td>
-                                            <td><?= $professional['phone_number']; ?></td>
-                                            <td><?= $professional['profession_name']; ?></td>
-                                            <td><?= $professional['average_rating']; ?></td>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                            <th>Profession</th>
+                                            <th>Average Rating</th>
                                         </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($filteredData as $professional) : ?>
+                                            <tr>
+                                                <td><?= $professional['name']; ?></td>
+                                                <td><?= $professional['email']; ?></td>
+                                                <td><?= $professional['phone_number']; ?></td>
+                                                <td><?= $professional['profession_name']; ?></td>
+                                                <td><?= $professional['average_rating']; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            <?php else : ?>
+                                <p>No professionals found with an average rating greater than 4.</p>
+                            <?php endif; ?>
                         <?php else : ?>
                             <p>No professionals found for the selected profession.</p>
                         <?php endif; ?>
@@ -77,7 +86,7 @@
                                     <div class="input">
                                         <label for="professional">Select a professional</label>
                                         <select class="form-input" id="professional" name="professional">
-                                            <?php foreach ($professionalsData as $professional) : ?>
+                                            <?php foreach ($filteredData as $professional) : ?>
                                                 <option value="<?= $professional['email']; ?>">
                                                     <?= $professional['name']; ?> (Email: <?= $professional['email']; ?>, Average Rating: <?= $professional['average_rating']; ?>)
                                                 </option>
@@ -85,13 +94,13 @@
                                         </select>
                                     </div>
                                     <div class="input">
-                                        <button type="submit" class="form-button">Enlist</button> 
+                                        <button type="submit" class="form-button">Enlist</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
-                  </div>
+                </div>
             </div>
         </div>
     </div>

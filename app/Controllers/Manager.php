@@ -47,43 +47,95 @@ class Manager extends BaseController
         return view('manager-dashboards/view-team');
     }
 
-
     public function searchProfessionals()
     {
         $profession_id = $this->request->getPost('profession_id');
-    
+
         $professionalsModel = new ProfessionalsModel();
         $userModel = new UserModel();
         $professionsModel = new ProfessionsModel();
-    
+        $professionalEngagementsModel = new ProfessionalEngagementsModel();
+
         $professionals = $professionalsModel->where('profession_id', $profession_id)->findAll();
-    
+
         $professionalsData = [];
         foreach ($professionals as $professional) {
             $user_id = $professional['user_id'];
             $user = $userModel->find($user_id);
-    
+
             if ($user !== null) {
                 $profession_id = $professional['profession_id'];
                 $profession = $professionsModel->find($profession_id);
-    
-                $professionalsData[] = [
-                    'name' => $user['name'],
-                    'email' => $user['email'],
-                    'phone_number' => $user['phone_number'],
-                    'average_rating' => $professional['average_rating'],
-                    'profession_name' => ($profession !== null) ? $profession['profession_name'] : null,
-                ];
+
+                // Query ProfessionalEngagementsModel for active_engagement
+                $professionalEngagement = $professionalEngagementsModel
+                    ->where('professional_id', $user_id)
+                    ->where('active_engagement', 1)
+                    ->first();
+
+                // Exclude data with matching user_id from professionalsData
+                if ($professionalEngagement === null) {
+                    $professionalsData[] = [
+                        'name' => $user['name'],
+                        'email' => $user['email'],
+                        'phone_number' => $user['phone_number'],
+                        'average_rating' => $professional['average_rating'],
+                        'profession_name' => ($profession !== null) ? $profession['profession_name'] : null,
+                    ];
+                }
             }
         }
-    
+
         $data = [
             'profession_name' => ($profession !== null) ? $profession['profession_name'] : null,
             'professionalsData' => $professionalsData,
         ];
-    
+
         return view('manager-dashboards/professionals-search', $data);
     }
+
+
+    
+    // public function searchServices()
+    // {
+    //     $service_id = $this->request->getPost('service_id');
+
+    //     $providersModel = new ProvidersModel();
+    //     $userModel = new UserModel();
+    //     $servicesModel = new ServicesModel();
+
+    //     $providers = $providersModel->where('service_id', $service_id)->findAll();
+
+    //     $providersData = [];
+    //     $service_name = null; // Initialize the variable outside the loop
+    //     foreach ($providers as $provider) {
+    //         $user_id = $provider['user_id'];
+    //         $user = $userModel->find($user_id);
+
+    //         if ($user !== null) {
+    //             $service_id = $provider['service_id'];
+    //             $service = $servicesModel->find($service_id);
+
+    //             $service_name = ($service !== null) ? $service['service_name'] : null; // Move inside the loop
+
+    //             $providersData[] = [
+    //                 'name' => $user['name'],
+    //                 'email' => $user['email'],
+    //                 'phone_number' => $user['phone_number'],
+    //                 'service_name' => ($service !== null) ? $service['service_name'] : null,
+    //                 'company' => ($provider !== null) ? $provider['company'] : null,
+    //                 'average_rating' => $provider['average_rating'],
+    //             ];
+    //         }
+    //     }
+
+    //     $data = [
+    //         'service_name' => $service_name,
+    //         'providersData' => $providersData,
+    //     ];
+
+    //     return view('manager-dashboards/services-search', $data);
+    // } 
 
     public function searchServices()
     {
@@ -92,6 +144,7 @@ class Manager extends BaseController
         $providersModel = new ProvidersModel();
         $userModel = new UserModel();
         $servicesModel = new ServicesModel();
+        $providerEngagementsModel = new ProviderEngagementsModel();
 
         $providers = $providersModel->where('service_id', $service_id)->findAll();
 
@@ -107,14 +160,23 @@ class Manager extends BaseController
 
                 $service_name = ($service !== null) ? $service['service_name'] : null; // Move inside the loop
 
-                $providersData[] = [
-                    'name' => $user['name'],
-                    'email' => $user['email'],
-                    'phone_number' => $user['phone_number'],
-                    'service_name' => ($service !== null) ? $service['service_name'] : null,
-                    'company' => ($provider !== null) ? $provider['company'] : null,
-                    'average_rating' => $provider['average_rating'],
-                ];
+                // Query ProviderEngagementsModel for active_engagement
+                $providerEngagement = $providerEngagementsModel
+                    ->where('provider_id', $user_id)
+                    ->where('active_engagement', 1)
+                    ->first();
+
+                // Exclude data with matching user_id from providersData
+                if ($providerEngagement === null) {
+                    $providersData[] = [
+                        'name' => $user['name'],
+                        'email' => $user['email'],
+                        'phone_number' => $user['phone_number'],
+                        'service_name' => ($service !== null) ? $service['service_name'] : null,
+                        'company' => ($provider !== null) ? $provider['company'] : null,
+                        'average_rating' => $provider['average_rating'],
+                    ];
+                }
             }
         }
 
@@ -124,7 +186,8 @@ class Manager extends BaseController
         ];
 
         return view('manager-dashboards/services-search', $data);
-    } 
+    }
+
 
 
     public function selectProfessionalEngagement()
