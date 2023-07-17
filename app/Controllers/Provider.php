@@ -84,6 +84,17 @@ class Provider extends BaseController
         // Check if a matching user is found
         if ($user) {
             // Update the account status to 0
+
+            $email = \Config\Services::email();
+            $email->setFrom('construct.assist.254@gmail.com', 'Construct-Assist');
+            $email->setTo($sessionEmail);
+            $email->setSubject('ACCOUNT DELETED');
+            $email->setMessage('Good day!<br><br>It seems you have decided to delete your account. We are sorry to see you go.<br>
+            Do not worry, you can always recover your account by sending us an email at construct.assist.254@gmail.com and we shall process your request within 24 hours.          
+            <br><br>Thank you for using Construct-Assist');
+        
+            $email->send();
+    
             $userModel->update($user['user_id'], ['account_status' => 0]);
         }
         return redirect()->to('login')->with('fail', 'Account deleted.');
