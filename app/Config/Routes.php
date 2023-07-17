@@ -33,9 +33,11 @@ $routes->get('/', 'Home::index');
 $routes->get('activate/(:segment)/(:segment)','Auth::activate/$email/$name');
 $routes->get('processReset/(:segment)','Auth::processReset/$email');
 
+$routes->add('home', 'Home::index');
 
 // Auth routes for views
 $routes->add('login', 'Auth::login');
+$routes->add('about', 'Auth::about');
 $routes->add('registration', 'Auth::registration');
 $routes->add('dashboard', 'Dashboard::index');
 

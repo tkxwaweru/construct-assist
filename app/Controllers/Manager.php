@@ -11,6 +11,7 @@ use App\Models\ProfessionalEngagementsModel;
 use App\Models\ProviderEngagementsModel;
 use App\Models\ProviderRatingsModel;
 use App\Models\ProfessionalRatingsModel;
+use Config\Services;
 
 
 
@@ -129,7 +130,7 @@ class Manager extends BaseController
     public function selectProfessionalEngagement()
     {
         // Retrieve the posted professional email
-        $email = $this->request->getPost('professional');
+        $postEmail = $this->request->getPost('professional');
         
         // Retrieve the active session email
         $sessionEmail = session('email');
@@ -140,7 +141,7 @@ class Manager extends BaseController
         $managerId = ($manager !== null) ? $manager['user_id'] : null;
         
         // Query the tbl_users table to find the professional's user details where the email matches the posted email
-        $professional = $userModel->where('email', $email)->first();
+        $professional = $userModel->where('email', $postEmail)->first();
         $professionalId = ($professional !== null) ? $professional['user_id'] : null;
         
         if ($managerId !== null && $professionalId !== null) {
@@ -166,6 +167,18 @@ class Manager extends BaseController
                 ]);
             }
         }
+
+        $email = \Config\Services::email();
+        $email->setFrom('construct.assist.254@gmail.com', 'Construct-Assist');
+        $email->setTo($postEmail);
+        $email->setSubject('PROJECT RECRUITMENT');
+        $email->setMessage('Good day!'.'<br><br>' . 'You have been recruited by '. $sessionEmail .' to collaborate on a 
+        construction project.<br><br> 
+        This project manager shall contact you with more details. Upon job completion your services shall be rated 
+        (out of 5) by the project manager. You shall receive an email with details on this after you have been rated.<br><br>
+            Thank you for using Construct-Assist');
+
+        $email->send();
         
         // Redirect to a success page or perform any further actions
         return redirect()->to('managerEngagements');
@@ -176,7 +189,7 @@ class Manager extends BaseController
     public function selectProviderEngagement()
     {
              // Retrieve the posted professional email
-             $email = $this->request->getPost('provider');
+             $postEmail = $this->request->getPost('provider');
         
              // Retrieve the active session email
              $sessionEmail = session('email');
@@ -187,7 +200,7 @@ class Manager extends BaseController
              $managerId = ($manager !== null) ? $manager['user_id'] : null;
              
              // Query the tbl_users table to find the professional's user details where the email matches the posted email
-             $provider = $userModel->where('email', $email)->first();
+             $provider = $userModel->where('email', $postEmail)->first();
              $providerId = ($provider !== null) ? $provider['user_id'] : null;
              
              if ($managerId !== null && $providerId !== null) {
@@ -213,6 +226,18 @@ class Manager extends BaseController
                      ]);
                  }
              }
+
+                $email = \Config\Services::email();
+                $email->setFrom('construct.assist.254@gmail.com', 'Construct-Assist');
+                $email->setTo($postEmail);
+                $email->setSubject('PROJECT RECRUITMENT');
+                $email->setMessage('Good day!'.'<br><br>' . 'You have been recruited by '. $sessionEmail .' to collaborate on a 
+                construction project.<br><br> 
+                This project manager shall contact you with more details. Upon job completion your services shall be rated 
+                (out of 5) by the project manager. You shall receive an email with details on this after you have been rated.<br><br>
+                    Thank you for using Construct-Assist');
+    
+                $email->send();
              
              // Redirect to a success page or perform any further actions
              return redirect()->to('managerEngagements');
@@ -281,13 +306,14 @@ class Manager extends BaseController
     public function rateService()
     {
         // Retrieve the posted data from the form
-        $email = $this->request->getPost('email');
+        $sessionEmail = session('email');
+        $postEmail = $this->request->getPost('email');
         $score = $this->request->getPost('score');
         $comment = $this->request->getPost('comment');
     
         // Get user_id and role_id based on the posted email
         $userModel = new UserModel();
-        $user = $userModel->where('email', $email)->first();
+        $user = $userModel->where('email', $postEmail)->first();
         if (!$user) {
             // Handle case when user is not found
             // Redirect or display an error message
@@ -308,10 +334,10 @@ class Manager extends BaseController
     
             // Update average_rating in ProfessionalsModel
             $professionalsModel = new ProfessionalsModel();
-            $professional = $professionalsModel->where('user_id', $user_id)->first();            
+            $professional = $professionalsModel->where('user_id', $user_id)->first();
             $averageRating = ($professional['average_rating'] + $score) / 2;
             $professionalsModel->where('user_id', $user_id)->set(['average_rating' => $averageRating])->update();
-            
+    
     
             // Update ProfessionalEngagementsModel
             $professionalEngagementsModel = new ProfessionalEngagementsModel();
@@ -350,14 +376,22 @@ class Manager extends BaseController
                     'conclusion_date' => date('Y-m-d')
                 ]);
             }
-        } else {
-            // Handle other role IDs if needed
         }
     
+        $email = \Config\Services::email();
+        $email->setFrom('construct.assist.254@gmail.com', 'Construct-Assist');
+        $email->setTo($postEmail);
+        $email->setSubject('SERVICE RATING');
+        $email->setMessage('Good day!'.'<br><br>' . 'Your Services have been rated a ' .$score. ' (out of 5) by '. $sessionEmail .'<br><br> 
+                Log in to your account to view more details.' . ' ' .
+                    "<a href='" . base_url('login'). "'> Click here</a>".'<br><br>'.
+                    'Thank you for using Construct-Assist');
+    
+        $email->send();
         // Redirect or display success message
         return redirect()->to('managerEngagements');
     }
-
+    
 
     public function managerPasswordRequest(){
         $email = session('email');

@@ -11,8 +11,8 @@
             <div class="navbar">
                 <img src="<?= base_url('images/icon.png')?>" alt="logo" class="logo">
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
+                    <li><a href="<?php echo site_url('home'); ?>">Home</a></li>
+                    <li><a href="<?php echo site_url('about'); ?>">About</a></li>
                     <li><a href="<?php echo site_url('login'); ?>">Login</a></li>
                 </ul>
             </div>

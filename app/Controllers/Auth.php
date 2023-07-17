@@ -14,6 +14,12 @@ class Auth extends BaseController
     }
 
 
+    public function about()
+    {
+        // Load the login module
+         return view('about.php');
+    }
+
     public function login()
     {
         // Load the login module
