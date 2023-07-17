@@ -10,7 +10,7 @@
 <body>
   <header class="header">
     <div class="title">
-      <span>Dashboard</span>
+      <span>Administrator Dashboard</span>
     </div>
     <div class="header-icons">
       <div class="account">
@@ -33,7 +33,7 @@
     </nav>
 
     <div class="main-body">
-      <h2>Home</h2>
+      <h2>Professional Ratings</h2>
       <div class="promo_card">
           <h2>Profile: <?= session('name'); ?></h2>
           <p>Professional ratings:</p><br>

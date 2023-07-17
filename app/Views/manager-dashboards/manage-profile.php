@@ -19,7 +19,7 @@
 <body>
   <header class="header">
     <div class="title">
-      <span>Dashboard</span>
+      <span>Manager Dashboard</span>
     </div>
     <div class="header-icons">
       <div class="account">
@@ -41,7 +41,7 @@
     </nav>
 
     <div class="main-body">
-      <h2>Home</h2>
+      <h2>Manage Profile</h2>
       <div class="promo_card">
           <h2>Profile: <?= session('name'); ?></h2>
           <p>Click on an option:</p>
