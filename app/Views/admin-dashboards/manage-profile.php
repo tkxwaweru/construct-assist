@@ -12,6 +12,12 @@
         window.location.href = "<?php echo site_url('logout'); ?>";
       }
     }
+
+    function confirmDeleteAccount() {
+      if (confirm("Are you sure you want to delete your account?")) {
+        window.location.href = "<?php echo site_url('managerAccountDelete'); ?>";
+      }
+    }
   </script>
 </head>
 <body>
@@ -46,7 +52,7 @@
           <p>Click on an option:</p>
           <ol>
             <li>Reset Password: <a href="<?php echo site_url('managerPasswordRequest'); ?>">Click here</a></li>
-            <li>Delete Account: <a href="<?php echo site_url('managerAccountDelete'); ?>">Click here</a></li>
+            <li>Delete Account: <a href="#" onclick="confirmDeleteAccount()">Click here</a></li>
           </ol>
       </div>
     </div>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Dashboard.Services</title>
+  <title>Dasboard.Services</title>
   <link rel="stylesheet" href="<?= base_url('css/manager-dashboard.css') ?>">
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
@@ -40,6 +40,7 @@
           <form action="<?php echo base_url('rateService')?>" method="post">
             <div class="content">
               <h3>Rate the quality of service you received from the individual:</h3>
+              <br>
               <div class="input-field">
                 <label for="name">Name:</label>
                 <input class="form-input" type="text" id="name" name="name" value="<?= $name ?>" readonly>
@@ -50,7 +51,7 @@
               </div>
               <div class="input-field">
                 <label for="score">Score (out of 5):</label>
-                <input class="form-input-score" type="text" id="score" name="score" placeholder="e.g. 4.5">
+                <input class="form-input-score" type="number" id="score" name="score" placeholder="e.g. 5.00" step="0.01" min="0" max="5" required>
               </div>
               <div>
                 <label for="comment">Comment:</label>
@@ -66,9 +67,10 @@
   </div>
 
   <script>
-    function confirmLogout() {
-      return confirm('Are you sure you want to logout?');
-    }
-  </script>
+        function confirmLogout() {
+            return confirm('Are you sure you want to logout?');
+        }
+    </script>
+
 </body>
 </html>
