@@ -36,14 +36,13 @@
                     <div class="search-results">
                         <h3>Results for Profession: <?= $profession_name; ?></h3>
                         <br>
-                        <?php if (!empty($professionalsData)) : ?>
-                            <?php
-                            // Filter professionals data by average_rating greater than 4
+                        <?php
+                        $filteredData = [];
+                        if (!empty($professionalsData)) :
                             $filteredData = array_filter($professionalsData, function ($professional) {
                                 return $professional['average_rating'] > 4;
                             });
-                            
-                            // Sort professionals data by average_rating in descending order
+
                             usort($filteredData, function ($a, $b) {
                                 return $b['average_rating'] <=> $a['average_rating'];
                             });
@@ -60,7 +59,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($filteredData as $professional) : ?>
+                                        <?php
+                                        $counter = 0;
+                                        foreach ($filteredData as $professional) : ?>
+                                            <?php if ($counter >= 5) break; ?>
                                             <tr>
                                                 <td><?= $professional['name']; ?></td>
                                                 <td><?= $professional['email']; ?></td>
@@ -68,6 +70,7 @@
                                                 <td><?= $professional['profession_name']; ?></td>
                                                 <td><?= $professional['average_rating']; ?></td>
                                             </tr>
+                                            <?php $counter++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>

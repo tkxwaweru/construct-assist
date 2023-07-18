@@ -9,7 +9,7 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        for($i = 0; $i < 93; $i++){
+        for($i = 0; $i < 401; $i++){
            $user = $this->generateFakeUser();
 
            $this->db->table("tbl_users")->insert($user);
@@ -21,9 +21,7 @@ class UserSeeder extends Seeder
         $fakerObject = Factory::create();
 
         $role_id = [
-            "2",
-            "3",
-            "4",
+            "4"
         ];
         
         return array(
