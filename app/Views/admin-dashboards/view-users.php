@@ -6,6 +6,42 @@
   <link rel="stylesheet" href="<?= base_url('css/admin-dashboard.css') ?>">
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+  <script>
+    function confirmLogout() {
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "<?php echo site_url('logout'); ?>";
+      }
+    }
+    
+    function searchTable() {
+      var input = document.getElementById("searchInput");
+      var filter = input.value.toUpperCase();
+      var table = document.getElementsByClassName("user-table")[0];
+      var rows = table.getElementsByTagName("tr");
+
+      for (var i = 0; i < rows.length; i++) {
+        var cells = rows[i].getElementsByTagName("td");
+        var found = false;
+
+        for (var j = 0; j < cells.length; j++) {
+          var cell = cells[j];
+          if (cell) {
+            var cellText = cell.textContent || cell.innerText;
+            if (cellText.toUpperCase().indexOf(filter) > -1) {
+              found = true;
+              break;
+            }
+          }
+        }
+
+        if (found || i === 0) {
+          rows[i].style.display = "";
+        } else {
+          rows[i].style.display = "none";
+        }
+      }
+    }
+  </script>
 </head>
 <body>
   <header class="header">
@@ -28,7 +64,7 @@
         <a class="active" href="#">View User Records</a>
         <a href="<?php echo site_url('viewProfessionalRatings'); ?>">View Professional Ratings</a>
         <a href="<?php echo site_url('viewProviderRatings'); ?>">View Provider Ratings</a>
-        <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
+        <a class="log-out-button" href="#" onclick="confirmLogout()">Logout</a>
       </div>
     </nav>
 
@@ -98,37 +134,5 @@
       </div>
     </div>
   </div>
-
-  <script>
-  function searchTable() {
-    var input = document.getElementById("searchInput");
-    var filter = input.value.toUpperCase();
-    var table = document.getElementsByClassName("user-table")[0];
-    var rows = table.getElementsByTagName("tr");
-
-    for (var i = 0; i < rows.length; i++) {
-      var cells = rows[i].getElementsByTagName("td");
-      var found = false;
-
-      for (var j = 0; j < cells.length; j++) {
-        var cell = cells[j];
-        if (cell) {
-          var cellText = cell.textContent || cell.innerText;
-          if (cellText.toUpperCase().indexOf(filter) > -1) {
-            found = true;
-            break;
-          }
-        }
-      }
-
-      if (found || i === 0) {
-        rows[i].style.display = "";
-      } else {
-        rows[i].style.display = "none";
-      }
-    }
-  }
-</script>
-
 </body>
 </html>

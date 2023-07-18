@@ -1,4 +1,4 @@
-<?php 
+<?php
   if (!isset($userInfo['email']) || !isset($userInfo['name'])){
     return redirect()->to('login');
   } else {
@@ -11,6 +11,13 @@
   <link rel="stylesheet" href="<?= base_url('css/professional-dashboard.css') ?>">
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+  <script>
+    function confirmLogout() {
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "<?php echo site_url('logout'); ?>";
+      }
+    }
+  </script>
 </head>
 <body>
   <header class="header">
@@ -30,7 +37,7 @@
         <a class="active" href="<?php echo site_url('professionalHome'); ?>">Home</a>
         <a  href="<?php echo site_url('professionalProfile'); ?>">Manage Profile</a>
         <a  href="<?php echo site_url('professionalRatings'); ?>">View Ratings</a>
-        <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
+        <a class="log-out-button" href="#" onclick="confirmLogout()">Logout</a>
       </div>
     </nav>
 
@@ -59,3 +66,4 @@
 
 <?php 
   }
+?>

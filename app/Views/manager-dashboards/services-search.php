@@ -25,7 +25,7 @@
                 <a href="<?php echo site_url('enlistProfessionals'); ?>">Enlist Professionals</a>
                 <a class="active" href="<?php echo site_url('enlistServices'); ?>">Enlist Services</a>
                 <a href="<?php echo site_url('managerEngagements'); ?>">View Team</a>
-                <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
+                <a class="log-out-button" href="<?php echo site_url('logout'); ?>" onclick="return confirmLogout()">Logout</a>
             </div>
         </nav>
 
@@ -106,5 +106,11 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function confirmLogout() {
+            return confirm('Are you sure you want to logout?');
+        }
+    </script>
 </body>
 </html>

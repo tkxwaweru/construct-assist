@@ -6,6 +6,13 @@
   <link rel="stylesheet" href="<?= base_url('css/admin-dashboard.css') ?>">
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+  <script>
+    function confirmLogout() {
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "<?php echo site_url('logout'); ?>";
+      }
+    }
+  </script>
 </head>
 <body>
   <header class="header">
@@ -28,7 +35,7 @@
         <a href="<?php echo site_url('viewUsers'); ?>">View User Records</a>
         <a href="<?php echo site_url('viewProfessionalRatings'); ?>">View Professional Ratings</a>
         <a href="<?php echo site_url('viewProviderRatings'); ?>">View Provider Ratings</a>
-        <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
+        <a class="log-out-button" href="#" onclick="confirmLogout()">Logout</a>
       </div>
     </nav>
 
@@ -82,4 +89,3 @@
   </div>
 </body>
 </html>
-

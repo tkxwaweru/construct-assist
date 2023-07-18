@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Dasboard.Services</title>
+  <title>Dashboard.Services</title>
   <link rel="stylesheet" href="<?= base_url('css/manager-dashboard.css') ?>">
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
@@ -27,7 +27,7 @@
         <a href="<?php echo site_url('enlistProfessionals'); ?>">Enlist Professionals</a>
         <a href="<?php echo site_url('enlistServices'); ?>">Enlist Services</a>
         <a class="active" href="<?php echo site_url('managerEngagements'); ?>">View Team</a>
-        <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
+        <a class="log-out-button" href="<?php echo site_url('logout'); ?>" onclick="return confirmLogout()">Logout</a>
       </div>
     </nav>
 
@@ -64,5 +64,11 @@
       </div>
     </div>
   </div>
+
+  <script>
+    function confirmLogout() {
+      return confirm('Are you sure you want to logout?');
+    }
+  </script>
 </body>
 </html>

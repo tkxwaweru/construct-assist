@@ -1,4 +1,4 @@
-<?php 
+<?php
   if (!isset($userInfo['email']) || !isset($userInfo['name'])){
     return redirect()->to('login');
   } else {
@@ -11,6 +11,13 @@
   <link rel="stylesheet" href="<?= base_url('css/manager-dashboard.css') ?>">
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+  <script>
+    function confirmLogout() {
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "<?php echo site_url('logout'); ?>";
+      }
+    }
+  </script>
 </head>
 <body>
   <header class="header">
@@ -32,7 +39,7 @@
         <a href="<?php echo site_url('enlistProfessionals'); ?>">Enlist Professionals</a>
         <a href="<?php echo site_url('enlistServices'); ?>">Enlist Services</a>
         <a href="<?php echo site_url('managerEngagements'); ?>">View Team</a>
-        <a class="log-out-button" href="<?php echo site_url('logout'); ?>">Logout</a>
+        <a class="log-out-button" href="#" onclick="confirmLogout()">Logout</a>
       </div>
     </nav>
 
