@@ -1,21 +1,26 @@
 /*  import google fonts */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-*{
+
+* {
   margin: 0;
   padding: 0;
   font-family: poppins, sans-serif;
 }
 
-.banner{
+.banner {
   width: 100%;
   height: 100vh;
-  background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url(../images/Nairobi-background-1.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(../images/Nairobi-background-1.jpg);
   background-size: cover;
   background-position: center;
 }
 
-.navbar{
-  width: 85%;
+.navbar img {
+  margin-left: 10px;
+}
+
+.navbar {
+  width: 95%;
   margin: auto;
   padding: 35px 0;
   display: flex;
@@ -23,25 +28,47 @@
   justify-content: space-between;
 }
 
-.logo{
+.login {
+  margin-right: 27px;
+  padding: 5px 15px;
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+  border-radius: 35px;
+  font-weight: bold;
+  border: 2px solid white;
+  background: transparent;
+  text-decoration: none;
+  color: white;
+  /*font-size: 25px;*/
+  transition: 0.5s ease-in-out;
+}
+
+.login:hover {
+  color: white;
+  border: 2px solid #0096FF;
+  background-color: #0096FF;
+}
+
+.logo {
   width: 120px;
   cursor: pointer;
 }
 
-.navbar ul li{
+.navbar ul li {
   list-style: none;
   display: inline-block;
   margin: 0 20px;
   position: relative;
 }
 
-.navbar ul li a{
+.navbar ul li a {
   text-decoration: none;
   color: white;
   text-transform: uppercase;
 }
 
-.navbar ul li::after{
+.navbar ul li::after {
   content: '';
   height: 3px;
   width: 0;
@@ -52,11 +79,11 @@
   transition: 0.5s;
 }
 
-.navbar ul li:hover::after{
+.navbar ul li:hover::after {
   width: 100%;
 }
 
-.content{
+.content {
   width: 100%;
   position: absolute;
   top: 50%;
@@ -65,22 +92,22 @@
   color: white;
 }
 
-.content h1{
+.content h1 {
   font-size: 70px;
   margin-top: 80px;
 }
 
-.content p{
+.content p {
   margin: 5px auto;
   font-weight: 100;
   line-height: 25px;
 }
 
-.button{
+.button {
   margin-top: 40px;
 }
 
-.button a{
+.button a {
   width: 200px;
   padding: 15px 35px;
   text-align: center;
@@ -94,7 +121,7 @@
   transition: 0.5s ease-in-out;
 }
 
-.button a:hover{
+.button a:hover {
   color: white;
   border: 2px solid #0096FF;
   background-color: #0096FF;

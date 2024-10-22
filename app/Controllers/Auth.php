@@ -13,27 +13,33 @@ class Auth extends BaseController
         helper(['url', 'form']);
     }
 
+    public function contact()
+    {
+        // Load the contact us page
+        return view('contact.php');
+    }
+
 
     public function about()
     {
-        // Load the login module
-         return view('about.php');
+        // Load the about us page
+        return view('about.php');
     }
 
     public function login()
     {
         // Load the login module
-         return view('auth/login.php');
+        return view('auth/login.php');
     }
 
-    
+
     public function registration()
     {
         // Load the registration module
         return view('auth/registration.php');
     }
 
-    
+
     public function processLogin()
     {
         // Handle the login backend functionality
@@ -77,11 +83,11 @@ class Auth extends BaseController
                 session()->setFlashdata('fail', 'Incorrect password');
                 return redirect()->to('login')->withInput();
             } else 
-             if($active != 0){
+             if ($active != 0) {
                 session()->start();
                 $user_id = $userInfo['user_id'];
                 session()->set('loggedUser', $user_id);
-                
+
                 $email = $userInfo['email'];
                 $name = $userInfo['name'];
                 session()->set('email', $email);
@@ -106,8 +112,7 @@ class Auth extends BaseController
                         return redirect()->back()->with('fail', 'Something went wrong, please try again.');
                         break;
                 }
-            }
-            else{
+            } else {
                 return redirect()->to('login')->with('fail', 'Account does not exist.');
             }
         }
@@ -197,7 +202,7 @@ class Auth extends BaseController
                 $email->setSubject('WELCOME TO CONSTRUCT-ASSIST');
                 $email->setMessage('Hello ' . $values['name'] . ',<br><br>' . 'Your Account has been created successfully.<br><br> 
                 Click on the link provided to log in and access your dashboard.' . ' ' .
-                    "<a href='" . base_url('login'). "'> Click here</a>");
+                    "<a href='" . base_url('login') . "'> Click here</a>");
 
                 // Send email
                 if ($email->send()) {
@@ -258,13 +263,13 @@ class Auth extends BaseController
     public function processReset()
     {
         $email = $this->request->uri->getSegment(2);
-    
+
         $_SESSION['email'] = urldecode($email);
-    
+
         $data = [
             'email' => isset($_SESSION['email']) ? $_SESSION['email'] : null,
         ];
-    
+
         return view('auth/password.php', $data);
     }
 
@@ -290,47 +295,44 @@ class Auth extends BaseController
                 ],
             ],
         ]);
-    
+
         if (!$validation) {
             return view('auth/password', ['validation' => $this->validator]);
         }
-    
+
         $previousUrl = previous_url();
         $lastSlashPos = strrpos($previousUrl, '/');
         $email = substr($previousUrl, $lastSlashPos + 1);
 
         $password = $this->request->getPost('password');
 
-	    $db = \Config\Database::connect();
-    
+        $db = \Config\Database::connect();
+
         $data = ['password' => Hash::make($password)];
-	    $db->table('tbl_users')->where('email', $email)->update($data);
-    
+        $db->table('tbl_users')->where('email', $email)->update($data);
+
         if (!$db) {
             return redirect()->back()->with('fail', 'User not found.');
-        }else{
+        } else {
             session()->setFlashdata('success', 'Password updated.');
             return redirect()->to('login');
         }
     }
-    
-    
+
+
     public function logout()
     {
         session()->destroy();
-    
+
         $response = Services::response();
         $response->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
             ->setHeader('Pragma', 'no-cache')
             ->setHeader('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
-    
+
         return redirect()->to('login')->with('fail', 'You are logged out.')->withHeaders([
             'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
             'Pragma'        => 'no-cache',
             'Expires'       => 'Sat, 01 Jan 2000 00:00:00 GMT',
         ]);
     }
-
 }
-
-?>
